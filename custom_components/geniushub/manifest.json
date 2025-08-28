@@ -13,5 +13,5 @@
   "requirements": [
     "geniushub-client==0.7.1"
   ],
-  "version": "v2.0.2"
+  "version": "v2.0.3"
 }
