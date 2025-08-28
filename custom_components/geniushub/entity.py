@@ -10,7 +10,6 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.util import dt as dt_util
 
 from . import ATTR_DURATION, ATTR_ZONE_MODE, DOMAIN, SVC_SET_ZONE_OVERRIDE
-from .const import DOMAIN
 
 # temperature is repeated here, as it gives access to high-precision temps
 GH_ZONE_ATTRS = ["mode", "temperature", "type", "occupied", "override"]
@@ -37,7 +36,7 @@ class GeniusEntity(Entity):
         """Set up a listener when this entity is added to HA."""
         self.async_on_remove(async_dispatcher_connect(self.hass, DOMAIN, self._refresh))
 
-    async def _refresh(self, payload: dict | None = None) -> None:
+    async def _refresh(self, payload: dict | None = None) -> None:  # pylint: disable=unused-argument
         """Process any signals."""
         self.async_schedule_update_ha_state(force_refresh=True)
 
@@ -133,7 +132,7 @@ class GeniusZone(GeniusEntity):
 
         mode = payload["data"][ATTR_ZONE_MODE]
 
-        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001
+        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001 # pylint: disable=protected-access
             raise TypeError(
                 f"'{self.entity_id}' cannot support footprint mode (it has no PIR)"
             )

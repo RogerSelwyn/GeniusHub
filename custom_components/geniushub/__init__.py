@@ -29,6 +29,7 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.service import verify_domain_control
 
 from .const import DOMAIN
+from .coordinator import GeniusBroker
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -116,7 +117,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
 
     async_track_time_interval(hass, broker.async_update, SCAN_INTERVAL)
 
-    setup_service_functions(hass, broker)
+    setup_service_functions(hass)
 
     _create_hub_devices(hass, entry, unique_id, api, broker.client.zone_by_id[0])
 
@@ -126,7 +127,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
 
 
 @callback
-def setup_service_functions(hass: HomeAssistant, broker):
+def setup_service_functions(hass: HomeAssistant):
     """Set up the service functions."""
 
     @verify_domain_control(hass, DOMAIN)
@@ -157,47 +158,6 @@ def setup_service_functions(hass: HomeAssistant, broker):
     hass.services.async_register(
         DOMAIN, SVC_SET_ZONE_OVERRIDE, set_zone_mode, schema=SET_ZONE_OVERRIDE_SCHEMA
     )
-
-
-class GeniusBroker:
-    """Container for geniushub client and data."""
-
-    def __init__(self, hass: HomeAssistant, client: GeniusHub, hub_uid: str) -> None:
-        """Initialize the geniushub client."""
-        self.hass = hass
-        self.client = client
-        self.hub_uid = hub_uid
-        self._connect_error = False
-
-    async def async_update(self, now, **kwargs) -> None:
-        """Update the geniushub client's data."""
-        try:
-            await self.client.update()
-            if self._connect_error:
-                self._connect_error = False
-                _LOGGER.warning("Connection to geniushub re-established")
-        except (
-            aiohttp.ClientResponseError,
-            aiohttp.client_exceptions.ClientConnectorError,
-        ) as err:
-            if not self._connect_error:
-                self._connect_error = True
-                _LOGGER.error(
-                    "Connection to geniushub failed (unable to update), message is: %s",
-                    err,
-                )
-            return
-        self.make_debug_log_entries()
-
-        async_dispatcher_send(self.hass, DOMAIN)
-
-    def make_debug_log_entries(self) -> None:
-        """Make any useful debug log entries."""
-        _LOGGER.debug(
-            "Raw JSON: \n\nclient._zones = %s \n\nclient._devices = %s",
-            self.client._zones,  # noqa: SLF001
-            self.client._devices,  # noqa: SLF001
-        )
 
 
 def _create_hub_devices(

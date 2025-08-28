@@ -34,7 +34,7 @@ GH_HEATERS = ["hot water temperature"]
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    hass: HomeAssistant,  # pylint: disable=unused-argument
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -49,7 +49,7 @@ async def async_setup_entry(
     )
 
 
-class GeniusWaterHeater(GeniusHeatingZone, WaterHeaterEntity):
+class GeniusWaterHeater(GeniusHeatingZone, WaterHeaterEntity):  # pylint: disable=abstract-method
     """Representation of a Genius Hub water_heater device."""
 
     _attr_supported_features = (

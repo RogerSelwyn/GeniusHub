@@ -29,7 +29,7 @@ GH_ZONES = ["radiator", "wet underfloor"]
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    hass: HomeAssistant,  # pylint: disable=unused-argument
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -44,7 +44,7 @@ async def async_setup_entry(
     )
 
 
-class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
+class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):  # pylint: disable=abstract-method
     """Representation of a Genius Hub climate device."""
 
     _attr_supported_features = (

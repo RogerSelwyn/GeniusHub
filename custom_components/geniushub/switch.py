@@ -31,7 +31,7 @@ SET_SWITCH_OVERRIDE_SCHEMA: VolDictType = {
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    hass: HomeAssistant,  # pylint: disable=unused-argument
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -55,7 +55,7 @@ async def async_setup_entry(
     )
 
 
-class GeniusSwitch(GeniusZone, SwitchEntity):
+class GeniusSwitch(GeniusZone, SwitchEntity):  # pylint: disable=abstract-method
     """Representation of a Genius Hub switch."""
 
     @property

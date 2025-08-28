@@ -14,7 +14,7 @@ GH_TYPE = "Receiver"
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    hass: HomeAssistant,  # pylint: disable=unused-argument
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:

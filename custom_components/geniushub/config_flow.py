@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from http import HTTPStatus
 import logging
 import socket
+from http import HTTPStatus
 from typing import Any
 
 import aiohttp
-from geniushubclient import GeniusService
 import voluptuous as vol
-
+from geniushubclient import GeniusService
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -35,7 +34,7 @@ LOCAL_API_SCHEMA = vol.Schema(
 )
 
 
-class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
+class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):  # pylint: disable=abstract-method
     """Handle a config flow for Geniushub."""
 
     VERSION = 1
@@ -78,9 +77,6 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                     errors["base"] = "invalid_host"
             except (TimeoutError, aiohttp.ClientConnectionError):
                 errors["base"] = "cannot_connect"
-            except Exception:
-                _LOGGER.exception("Unexpected exception")
-                errors["base"] = "unknown"
             else:
                 await self.async_set_unique_id(response["data"]["UID"])
                 self._abort_if_unique_id_configured()
@@ -113,9 +109,6 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                 errors["base"] = "invalid_host"
             except (TimeoutError, aiohttp.ClientConnectionError):
                 errors["base"] = "cannot_connect"
-            except Exception:
-                _LOGGER.exception("Unexpected exception")
-                errors["base"] = "unknown"
             else:
                 return self.async_create_entry(title="Genius hub", data=user_input)
 
