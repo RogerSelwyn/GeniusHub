@@ -80,15 +80,17 @@ class GeniusDevice(GeniusEntity):
 
         if self._device.type:
             name = f"{self._device.type.title()} {self._device.id}"
+            model = self._device.type
         else:
             name = f"Electric Switch {self._device.id}"
+            model = "Electric Switch"
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
             via_device=(DOMAIN, via_device),
             name=name,
             manufacturer=ATTR_MANUFACTURER,
-            model=self._device.type,
+            model=model,
         )
 
     async def async_update(self) -> None:
