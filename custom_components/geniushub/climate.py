@@ -11,9 +11,11 @@ from homeassistant.components.climate import (
     HVACMode,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
+from .const import DOMAIN
 from .entity import GeniusHeatingZone
 
 # GeniusHub Zones support: Off, Timer, Override/Boost, Footprint & Linked modes
@@ -96,6 +98,18 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
         if "occupied" in self._zone.data:  # if has a movement sensor
             return [PRESET_ACTIVITY, PRESET_BOOST]
         return [PRESET_BOOST]
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Entity device info"""
+
+        return DeviceInfo(
+            identifiers={(DOMAIN, f"zone-{self._zone.id}")},
+            name=self._zone.name,
+            via_device=(DOMAIN, self._hub.hub_uid),
+            manufacturer="Genius Hub",
+            model=f"{self._zone.data['type'].title()} Zone",
+        )
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set a new hvac mode."""

@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from datetime import timedelta
 import logging
+from datetime import timedelta
 
 import aiohttp
-from geniushubclient import GeniusHub
 import voluptuous as vol
-
+from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     ATTR_ENTITY_ID,
@@ -21,7 +20,9 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant, ServiceCall, callback
-from homeassistant.helpers import config_validation as cv, entity_registry as er
+from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.event import async_track_time_interval
@@ -91,6 +92,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
 
     session = async_get_clientsession(hass)
     if CONF_HOST in entry.data:
+        api = "Local"
         client = GeniusHub(
             entry.data[CONF_HOST],
             username=entry.data[CONF_USERNAME],
@@ -98,6 +100,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
             session=session,
         )
     else:
+        api = "Cloud"
         client = GeniusHub(entry.data[CONF_TOKEN], session=session)
 
     unique_id = entry.unique_id or entry.entry_id
@@ -114,6 +117,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
     async_track_time_interval(hass, broker.async_update, SCAN_INTERVAL)
 
     setup_service_functions(hass, broker)
+
+    _create_hub_devices(hass, entry, unique_id, api, broker.client.zone_by_id[0])
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
@@ -192,4 +197,27 @@ class GeniusBroker:
             "Raw JSON: \n\nclient._zones = %s \n\nclient._devices = %s",
             self.client._zones,  # noqa: SLF001
             self.client._devices,  # noqa: SLF001
+        )
+
+
+def _create_hub_devices(
+    hass: HomeAssistant, entry: GeniusHubConfigEntry, hub_uid: str, api: str, zone0: any
+):
+    device_registry = dr.async_get(hass)
+    hub_identifiers = (DOMAIN, hub_uid)
+    device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={hub_identifiers},
+        name=hub_uid,
+        manufacturer="Genius Hub",
+        model=f"{api} API",
+    )
+    if zone0.id == 0:
+        device_registry.async_get_or_create(
+            config_entry_id=entry.entry_id,
+            identifiers={(DOMAIN, f"zone-{zone0.id}")},
+            via_device=hub_identifiers,
+            name=zone0.name,
+            manufacturer="Genius Hub",
+            model=zone0.name,
         )

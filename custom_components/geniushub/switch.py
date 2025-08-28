@@ -6,14 +6,16 @@ from datetime import timedelta
 from typing import Any
 
 import voluptuous as vol
-
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import config_validation as cv, entity_platform
+from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers import entity_platform
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import VolDictType
 
 from . import ATTR_DURATION, GeniusHubConfigEntry
+from .const import DOMAIN
 from .entity import GeniusZone
 
 GH_ON_OFF_ZONE = "on / off"
@@ -70,6 +72,18 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
         return (
             self._zone.data["mode"] in ["override", "timer"]
             and self._zone.data["setpoint"]
+        )
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Entity device info"""
+
+        return DeviceInfo(
+            identifiers={(DOMAIN, f"zone-{self._zone.id}")},
+            name=self._zone.name,
+            via_device=(DOMAIN, self._hub.hub_uid),
+            manufacturer="Genius Hub",
+            model=f"{self._zone.data['type'].title()} Zone",
         )
 
     async def async_turn_off(self, **kwargs: Any) -> None:

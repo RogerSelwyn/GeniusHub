@@ -8,10 +8,12 @@ from typing import Any
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.const import PERCENTAGE
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import GeniusHubConfigEntry
+from .const import DOMAIN
 from .entity import GeniusDevice, GeniusEntity
 
 GH_STATE_ATTR = "batteryLevel"
@@ -117,3 +119,8 @@ class GeniusIssue(GeniusEntity, SensorEntity):
         self._issues = [
             i["description"] for i in self._hub.issues if i["level"] == self._level
         ]
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Entity device info"""
+        return DeviceInfo(identifiers={(DOMAIN, self._hub.uid)})
