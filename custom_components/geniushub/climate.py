@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
+
 from homeassistant.components.climate import (
     PRESET_ACTIVITY,
     PRESET_BOOST,
@@ -11,21 +13,25 @@ from homeassistant.components.climate import (
     HVACMode,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers import entity_platform
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import DOMAIN
+from .const import (
+    DOMAIN,
+    GH_HVAC_TO_HA,
+    GH_PRESET_TO_HA,
+    GH_ZONES,
+    HA_HVAC_TO_GH,
+    HA_PRESET_TO_GH,
+    SET_ZONE_MODE_SCHEMA,
+    SET_ZONE_OVERRIDE_SCHEMA,
+    SVC_SET_ZONE_MODE,
+    SVC_SET_ZONE_OVERRIDE,
+)
 from .entity import GeniusHeatingZone
-
-# GeniusHub Zones support: Off, Timer, Override/Boost, Footprint & Linked modes
-HA_HVAC_TO_GH = {HVACMode.OFF: "off", HVACMode.HEAT: "timer"}
-GH_HVAC_TO_HA = {v: k for k, v in HA_HVAC_TO_GH.items()}
-
-HA_PRESET_TO_GH = {PRESET_ACTIVITY: "footprint", PRESET_BOOST: "override"}
-GH_PRESET_TO_HA = {v: k for k, v in HA_PRESET_TO_GH.items()}
-
-GH_ZONES = ["radiator", "wet underfloor"]
 
 
 async def async_setup_entry(
@@ -35,16 +41,31 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Genius Hub climate entities."""
 
-    broker = entry.runtime_data
+    coordinator = entry.runtime_data
 
+    await _async_register_services()
     async_add_entities(
-        GeniusClimateZone(broker, z)
-        for z in broker.client.zone_objs
+        GeniusClimateZone(coordinator, z)
+        for z in coordinator.client.zone_objs
         if z.data.get("type") in GH_ZONES
     )
 
 
-class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):  # pylint: disable=abstract-method
+async def _async_register_services():
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service(
+        SVC_SET_ZONE_MODE,
+        SET_ZONE_MODE_SCHEMA,
+        f"async_{SVC_SET_ZONE_MODE}",
+    )
+    platform.async_register_entity_service(
+        SVC_SET_ZONE_OVERRIDE,
+        SET_ZONE_OVERRIDE_SCHEMA,
+        f"async_{SVC_SET_ZONE_OVERRIDE}",
+    )
+
+
+class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
     """Representation of a Genius Hub climate device."""
 
     _attr_supported_features = (
@@ -54,9 +75,9 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):  # pylint: disable=ab
         | ClimateEntityFeature.TURN_ON
     )
 
-    def __init__(self, broker, zone) -> None:
+    def __init__(self, coordinator, zone) -> None:
         """Initialize the climate device."""
-        super().__init__(broker, zone)
+        super().__init__(coordinator, zone)
 
         self._max_temp = 28.0
         self._min_temp = 4.0
@@ -118,3 +139,20 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):  # pylint: disable=ab
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         """Set a new preset mode."""
         await self._zone.set_mode(HA_PRESET_TO_GH.get(preset_mode, "timer"))
+
+    async def async_set_zone_mode(self, mode):
+        """Set a new zone mode."""
+        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001 # pylint: disable=protected-access
+            raise ServiceValidationError(
+                f"'{self.entity_id}' cannot support footprint mode (it has no PIR)"
+            )
+
+        await self._zone.set_mode(mode)
+
+    async def async_set_zone_override(self, temperature, duration=timedelta(hours=1)):
+        """Set a new zone override."""
+        await self._zone.set_override(temperature, int(duration.total_seconds()))
+
+    def set_fan_mode(self, _) -> None:
+        """Not implemented."""
+        raise NotImplementedError("Service not implemented for this entity")

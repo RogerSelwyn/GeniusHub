@@ -4,25 +4,36 @@ import logging
 
 import aiohttp
 from geniushubclient import GeniusHub
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import DOMAIN
+from .const import SCAN_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class GeniusBroker:
+class GeniusCoordinator(DataUpdateCoordinator):
     """Container for geniushub client and data."""
 
-    def __init__(self, hass: HomeAssistant, client: GeniusHub, hub_uid: str) -> None:
+    def __init__(
+        self, hass: HomeAssistant, client: GeniusHub, entry: ConfigEntry, hub_uid: str
+    ) -> None:
         """Initialize the geniushub client."""
+        super().__init__(
+            hass,
+            _LOGGER,
+            config_entry=entry,
+            name="Genius Hub",
+            update_interval=SCAN_INTERVAL,
+            always_update=False,
+        )
         self.hass = hass
         self.client = client
         self.hub_uid = hub_uid
         self._connect_error = False
 
-    async def async_update(self, now, **kwargs) -> None:  # pylint: disable=unused-argument
+    async def _async_update_data(self) -> None:
         """Update the geniushub client's data."""
         try:
             await self.client.update()
@@ -42,7 +53,8 @@ class GeniusBroker:
             return
         self.make_debug_log_entries()
 
-        async_dispatcher_send(self.hass, DOMAIN)
+        return self.client
+        # async_dispatcher_send(self.hass, DOMAIN)
 
     def make_debug_log_entries(self) -> None:
         """Make any useful debug log entries."""

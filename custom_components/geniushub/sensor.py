@@ -13,16 +13,8 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import GeniusHubConfigEntry
-from .const import DOMAIN
+from .const import DOMAIN, GH_LEVEL_MAPPING, GH_STATE_ATTR
 from .entity import GeniusDevice, GeniusEntity
-
-GH_STATE_ATTR = "batteryLevel"
-
-GH_LEVEL_MAPPING = {
-    "error": "Errors",
-    "warning": "Warnings",
-    "information": "Information",
-}
 
 
 async def async_setup_entry(
@@ -32,14 +24,14 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Genius Hub sensor entities."""
 
-    broker = entry.runtime_data
+    coordinator = entry.runtime_data
 
     entities: list[GeniusBattery | GeniusIssue] = [
-        GeniusBattery(broker, d, GH_STATE_ATTR)
-        for d in broker.client.device_objs
+        GeniusBattery(coordinator, d, GH_STATE_ATTR)
+        for d in coordinator.client.device_objs
         if GH_STATE_ATTR in d.data["state"]
     ]
-    entities.extend([GeniusIssue(broker, i) for i in list(GH_LEVEL_MAPPING)])
+    entities.extend([GeniusIssue(coordinator, i) for i in list(GH_LEVEL_MAPPING)])
 
     async_add_entities(entities)
 
@@ -50,9 +42,9 @@ class GeniusBattery(GeniusDevice, SensorEntity):
     _attr_device_class = SensorDeviceClass.BATTERY
     _attr_native_unit_of_measurement = PERCENTAGE
 
-    def __init__(self, broker, device, state_attr) -> None:
+    def __init__(self, coordinator, device, state_attr) -> None:
         """Initialize the sensor."""
-        super().__init__(broker, device)
+        super().__init__(coordinator, device)
 
         self._state_attr = state_attr
 
@@ -93,12 +85,12 @@ class GeniusBattery(GeniusDevice, SensorEntity):
 class GeniusIssue(GeniusEntity, SensorEntity):
     """Representation of a Genius Hub sensor."""
 
-    def __init__(self, broker, level) -> None:
+    def __init__(self, coordinator, level) -> None:
         """Initialize the sensor."""
-        super().__init__()
+        super().__init__(coordinator)
 
-        self._hub = broker.client
-        self._unique_id = f"{broker.hub_uid}_{GH_LEVEL_MAPPING[level]}"
+        self._hub = coordinator.client
+        self._unique_id = f"{coordinator.hub_uid}_{GH_LEVEL_MAPPING[level]}"
 
         self._attr_name = f"GeniusHub {GH_LEVEL_MAPPING[level]}"
         self._level = level

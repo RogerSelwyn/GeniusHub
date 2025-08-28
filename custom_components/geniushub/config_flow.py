@@ -2,39 +2,20 @@
 
 from __future__ import annotations
 
-import logging
 import socket
 from http import HTTPStatus
-from typing import Any
+from typing import Any, Self
 
 import aiohttp
-import voluptuous as vol
 from geniushubclient import GeniusService
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import DOMAIN
-
-_LOGGER = logging.getLogger(__name__)
-
-CLOUD_API_SCHEMA = vol.Schema(
-    {
-        vol.Required(CONF_TOKEN): str,
-    }
-)
+from .const import CLOUD_API_SCHEMA, DOMAIN, LOCAL_API_SCHEMA
 
 
-LOCAL_API_SCHEMA = vol.Schema(
-    {
-        vol.Required(CONF_HOST): str,
-        vol.Required(CONF_USERNAME): str,
-        vol.Required(CONF_PASSWORD): str,
-    }
-)
-
-
-class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):  # pylint: disable=abstract-method
+class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Geniushub."""
 
     VERSION = 1
@@ -115,3 +96,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):  # pylint: disable=abstrac
         return self.async_show_form(
             step_id="cloud_api", errors=errors, data_schema=CLOUD_API_SCHEMA
         )
+
+    def is_matching(self, other_flow: Self) -> bool:
+        """Return True if other_flow is matching this flow."""
+        return False
