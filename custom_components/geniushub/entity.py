@@ -78,10 +78,15 @@ class GeniusDevice(GeniusEntity):
         else:
             via_device = self._hub.hub_uid
 
+        if self._device.type:
+            name = f"{self._device.type.title()} {self._device.id}"
+        else:
+            name = f"Electric Switch {self._device.id}"
+
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
             via_device=(DOMAIN, via_device),
-            name=f"{self._device.type.title()} {self._device.id}",
+            name=name,
             manufacturer=ATTR_MANUFACTURER,
             model=self._device.type,
         )

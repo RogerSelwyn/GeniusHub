@@ -54,7 +54,6 @@ class GeniusCoordinator(DataUpdateCoordinator):
         self.make_debug_log_entries()
 
         return self.client
-        # async_dispatcher_send(self.hass, DOMAIN)
 
     def make_debug_log_entries(self) -> None:
         """Make any useful debug log entries."""

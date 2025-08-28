@@ -23,7 +23,11 @@ async def async_setup_entry(
     async_add_entities(
         GeniusBinarySensor(coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
         for d in coordinator.client.device_objs
-        if GH_RECEIVER_TYPE in d.data["type"]
+        if (d.data.get("type") and GH_RECEIVER_TYPE in d.data.get("type"))
+        or (
+            not d.data.get("type")
+            and GH_BINARY_SENSOR_STATE_ATTR in d.data.get("state")
+        )
     )
 
 
@@ -36,10 +40,10 @@ class GeniusBinarySensor(GeniusDevice, BinarySensorEntity):
 
         self._state_attr = state_attr
 
-        if device.type[:21] == "Dual Channel Receiver":
-            self._attr_name = f"{device.type[:21]} {device.id}"
-        else:
+        if device.type:
             self._attr_name = f"{device.type} {device.id}"
+        else:
+            self._attr_name = f"Electric Switch {device.id}"
 
     @property
     def is_on(self) -> bool:
