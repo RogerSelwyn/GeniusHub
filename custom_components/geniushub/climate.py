@@ -20,12 +20,14 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
+    ATTR_MANUFACTURER,
     DOMAIN,
     GH_HVAC_TO_HA,
     GH_PRESET_TO_HA,
     GH_ZONES,
     HA_HVAC_TO_GH,
     HA_PRESET_TO_GH,
+    IDENTIFIER_ZONE,
     SET_ZONE_MODE_SCHEMA,
     SET_ZONE_OVERRIDE_SCHEMA,
     SVC_SET_ZONE_MODE,
@@ -125,10 +127,10 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
         """Entity device info"""
 
         return DeviceInfo(
-            identifiers={(DOMAIN, f"zone-{self._zone.id}")},
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
             name=self._zone.name,
             via_device=(DOMAIN, self._hub.hub_uid),
-            manufacturer="Genius Hub",
+            manufacturer=ATTR_MANUFACTURER,
             model=f"{self._zone.data['type'].title()} Zone",
         )
 

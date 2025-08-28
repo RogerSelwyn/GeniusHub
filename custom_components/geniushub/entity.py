@@ -9,7 +9,14 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
 
 from . import DOMAIN
-from .const import ATTR_DURATION, GH_DEVICE_ATTRS, GH_ZONE_ATTRS
+from .const import (
+    ATTR_DURATION,
+    ATTR_MANUFACTURER,
+    GH_DEVICE_ATTRS,
+    GH_ZONE_ATTRS,
+    IDENTIFIER_DEVICE,
+    IDENTIFIER_ZONE,
+)
 
 
 class GeniusEntity(CoordinatorEntity):
@@ -68,15 +75,15 @@ class GeniusDevice(GeniusEntity):
         """Entity device info"""
 
         if self._device.assigned_zone:
-            via_device = f"zone-{self._device.assigned_zone.id}"
+            via_device = IDENTIFIER_ZONE.format(self._device.assigned_zone.id)
         else:
             via_device = self._hub.hub_uid
 
         return DeviceInfo(
-            identifiers={(DOMAIN, f"device-{self._device.id}")},
+            identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
             via_device=(DOMAIN, via_device),
             name=f"{self._device.type.title()} {self._device.id}",
-            manufacturer="Genius Hub",
+            manufacturer=ATTR_MANUFACTURER,
             model=self._device.type,
         )
 

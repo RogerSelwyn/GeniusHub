@@ -34,6 +34,10 @@ PLATFORMS = (
     Platform.WATER_HEATER,
 )
 
+ATTR_MANUFACTURER = "Genius Hub"
+IDENTIFIER_ZONE = "zone-{0}"
+IDENTIFIER_DEVICE = "device-{0}"
+
 ### __init__ Constants Start ###
 SCAN_INTERVAL = timedelta(seconds=60)
 

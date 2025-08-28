@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import CLOUD_API_SCHEMA, DOMAIN, LOCAL_API_SCHEMA
+from .const import ATTR_MANUFACTURER, CLOUD_API_SCHEMA, DOMAIN, LOCAL_API_SCHEMA
 
 
 class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -91,7 +91,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
             except (TimeoutError, aiohttp.ClientConnectionError):
                 errors["base"] = "cannot_connect"
             else:
-                return self.async_create_entry(title="Genius hub", data=user_input)
+                return self.async_create_entry(title=ATTR_MANUFACTURER, data=user_input)
 
         return self.async_show_form(
             step_id="cloud_api", errors=errors, data_schema=CLOUD_API_SCHEMA

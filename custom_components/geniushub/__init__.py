@@ -19,10 +19,7 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import (
-    DOMAIN,
-    PLATFORMS,
-)
+from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, PLATFORMS
 from .coordinator import GeniusCoordinator
 
 _LOGGER = logging.getLogger(__name__)
@@ -123,15 +120,15 @@ def _create_hub_devices(
         config_entry_id=entry.entry_id,
         identifiers={hub_identifiers},
         name=hub_uid,
-        manufacturer="Genius Hub",
+        manufacturer=ATTR_MANUFACTURER,
         model=f"{api} API",
     )
     if zone0.id == 0:
         device_registry.async_get_or_create(
             config_entry_id=entry.entry_id,
-            identifiers={(DOMAIN, f"zone-{zone0.id}")},
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(zone0.id))},
             via_device=hub_identifiers,
             name=zone0.name,
-            manufacturer="Genius Hub",
+            manufacturer=ATTR_MANUFACTURER,
             model=zone0.name,
         )

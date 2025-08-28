@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import SCAN_INTERVAL
+from .const import DOMAIN, SCAN_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             config_entry=entry,
-            name="Genius Hub",
+            name=DOMAIN,
             update_interval=SCAN_INTERVAL,
             always_update=False,
         )

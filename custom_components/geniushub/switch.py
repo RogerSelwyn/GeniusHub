@@ -13,8 +13,10 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from . import GeniusHubConfigEntry
 from .const import (
     ATTR_DURATION,
+    ATTR_MANUFACTURER,
     DOMAIN,
     GH_ON_OFF_ZONE,
+    IDENTIFIER_ZONE,
     SET_SWITCH_OVERRIDE_SCHEMA,
     SVC_SET_SWITCH_OVERRIDE,
 )
@@ -70,10 +72,10 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
         """Entity device info"""
 
         return DeviceInfo(
-            identifiers={(DOMAIN, f"zone-{self._zone.id}")},
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
             name=self._zone.name,
             via_device=(DOMAIN, self._hub.hub_uid),
-            manufacturer="Genius Hub",
+            manufacturer=ATTR_MANUFACTURER,
             model=f"{self._zone.data['type'].title()} Zone",
         )
 
