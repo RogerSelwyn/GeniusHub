@@ -1,1 +1,1 @@
-A copy of teh HA core `geniushub` integration modified to meet my own needs.
+A copy of the HA core `geniushub` integration modified to meet my own needs.
