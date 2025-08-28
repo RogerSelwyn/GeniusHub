@@ -18,11 +18,6 @@
 ### 🔖 Release
 - [Release v2.0.0](https://github.com/RogerSelwyn/GeniusHub/commit/36c6720b8f197a6f01d348d9d4b9a2218c3b524c) - @RogerSelwyn
 
-### Other
-- [build(deps): Bump ruff from 0.12.1 to 0.12.10](https://github.com/RogerSelwyn/GeniusHub/commit/6abcee5ed1223b4006a13ffa04fef1d05b688c3b) - @dependabot[bot]
-
-
-
 
 ## v1.0.0 (2025/08/28)
 _No changes in this release._
