@@ -22,13 +22,6 @@
 - [Release v2.0.2](https://github.com/RogerSelwyn/GeniusHub/commit/73a823e8ff14c8a3649feadfdc8b2d3fd21464be) - @RogerSelwyn
 
 
-## v2.0.2 (2025/08/28)
-### 🔖 Release
-- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/cdb873d80459fcfd75cdb7ea3222b0cadcd593e2) - @actions-user
-
-
-
-
 ## v2.0.1 (2025/08/28)
 ### 🐛 Fixes
 - [Fixed Electric Switch entity not created](https://github.com/RogerSelwyn/GeniusHub/commit/ba19ffcb4b622681716ca6b72f52e15a1ac65393) - @RogerSelwyn
