@@ -1,5 +1,20 @@
 # Changelog
 
+## v2.0.4 (2025/08/28)
+### 🧰 Maintenance
+- [Handle failure of geniushub-client to handle electric switch issue](https://github.com/RogerSelwyn/GeniusHub/commit/f8c1df8534f925bede6a5db99fb0079a7933c7e4) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/a9e3e0c8e7e621d93a0d4987ed4ad6d168b3d655) - @actions-user
+- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/a14d5f41533048629ff8a933c40f0e748ca53498) - @RogerSelwyn
+- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/e25c0d67ce77f4b48e027845b44ead2d509f7d44) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.0.4](https://github.com/RogerSelwyn/GeniusHub/commit/14d1ff30520c2275edc8a29539c1d0ccffb82fee) - @RogerSelwyn
+
+
+
+
 ## v2.0.3 (2025/08/28)
 ### 🐛 Fixes
 - [Fix unknown model](https://github.com/RogerSelwyn/GeniusHub/commit/a38b86aaf28a584e220628dc218bfcf251fddb61) - @RogerSelwyn
