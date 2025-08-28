@@ -4,10 +4,6 @@
 ### 🐛 Fixes
 - [Fix unknown model](https://github.com/RogerSelwyn/GeniusHub/commit/a38b86aaf28a584e220628dc218bfcf251fddb61) - @RogerSelwyn
 
-### 📚 Documentation
-- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/c931d46952e1aeda828c2307577632d2c98b56c7) - @actions-user
-- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/9e64c34300ded7c9bade3951661e2973cb3bbe56) - @RogerSelwyn
-
 ### 🔖 Release
 - [Release v2.0.3](https://github.com/RogerSelwyn/GeniusHub/commit/79fae9e5fabe6051d4405221025a72905613e776) - @RogerSelwyn
 
