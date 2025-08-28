@@ -26,7 +26,6 @@ class GeniusCoordinator(DataUpdateCoordinator):
             config_entry=entry,
             name=DOMAIN,
             update_interval=SCAN_INTERVAL,
-            always_update=False,
         )
         self.hass = hass
         self.client = client

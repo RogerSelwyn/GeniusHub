@@ -39,8 +39,6 @@ IDENTIFIER_ZONE = "zone-{0}"
 IDENTIFIER_DEVICE = "device-{0}"
 
 ### __init__ Constants Start ###
-SCAN_INTERVAL = timedelta(seconds=60)
-
 MAC_ADDRESS_REGEXP = r"^([0-9A-F]{2}:){5}([0-9A-F]{2})$"
 
 ATTR_ZONE_MODE = "mode"
