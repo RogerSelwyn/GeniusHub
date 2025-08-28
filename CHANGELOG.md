@@ -1,6 +1,14 @@
 # Changelog
 
 ## v2.0.2 (2025/08/28)
+### 🐛 Fixes
+- [Fix entities not updating](https://github.com/RogerSelwyn/GeniusHub/commit/cca11aa56b189b6ba0fe47d2894be7ecad158858) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.0.2](https://github.com/RogerSelwyn/GeniusHub/commit/73a823e8ff14c8a3649feadfdc8b2d3fd21464be) - @RogerSelwyn
+
+
+## v2.0.2 (2025/08/28)
 ### 🔖 Release
 - [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/cdb873d80459fcfd75cdb7ea3222b0cadcd593e2) - @actions-user
 
