@@ -55,14 +55,13 @@ class GeniusDevice(GeniusEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the device state attributes."""
-        attrs = {}
-        attrs["assigned_zone"] = self._device.data["assignedZones"][0]["name"]
+        attrs = {"assigned_zone": self._device.data["assignedZones"][0]["name"]}
         if self._last_comms:
             attrs["last_comms"] = self._last_comms.isoformat()
 
         state = dict(self._device.data["state"])
         if "_state" in self._device.data:  # only via v3 API
-            state.update(self._device.data["_state"])
+            state |= self._device.data["_state"]
 
         attrs["state"] = {
             GH_DEVICE_ATTRS[k]: v for k, v in state.items() if k in GH_DEVICE_ATTRS
@@ -89,11 +88,13 @@ class GeniusDevice(GeniusEntity):
 
     async def async_update(self) -> None:
         """Update an entity's state data."""
-        if "_state" in self._device.data:  # only via v3 API
-            if self._device.data["_state"]["lastComms"] is not None:
-                self._last_comms = dt_util.utc_from_timestamp(
-                    self._device.data["_state"]["lastComms"]
-                )
+        if (
+            "_state" in self._device.data
+            and self._device.data["_state"]["lastComms"] is not None
+        ):  # only via v3 API
+            self._last_comms = dt_util.utc_from_timestamp(
+                self._device.data["_state"]["lastComms"]
+            )
 
 
 class GeniusZone(GeniusEntity):
