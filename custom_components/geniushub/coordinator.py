@@ -50,6 +50,15 @@ class GeniusCoordinator(DataUpdateCoordinator):
                     err,
                 )
             return
+        except KeyError as err:
+            if err.args[0] == "type":
+                self._connect_error = True
+                _LOGGER.error(
+                    "Error on client update, likely Electric Switch gone missing: %s",
+                    err,
+                )
+            return
+
         self.make_debug_log_entries()
 
         return self.client
