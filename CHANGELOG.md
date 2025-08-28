@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.0.1 (2025/08/28)
+### 🐛 Fixes
+- [Fixed Electric Switch entity not created](https://github.com/RogerSelwyn/GeniusHub/commit/ba19ffcb4b622681716ca6b72f52e15a1ac65393) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/5673e734e02c9d83234522980c2fe702616a9f29) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.0.1](https://github.com/RogerSelwyn/GeniusHub/commit/f2238a7e9a61dc53ae4ac4aebeb285516964b70a) - @RogerSelwyn
+
+
+
+
 ## v2.0.0 (2025/08/28)
 ### ✨ Enhancements
 - [Add device setup for all components](https://github.com/RogerSelwyn/GeniusHub/commit/6a51e25a9a90dcdbbee35dfe5b6a7fbb498ff79c) - @RogerSelwyn
