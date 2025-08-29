@@ -4,11 +4,6 @@
 ### 🧰 Maintenance
 - [Handle failure of geniushub-client to handle electric switch issue](https://github.com/RogerSelwyn/GeniusHub/commit/f8c1df8534f925bede6a5db99fb0079a7933c7e4) - @RogerSelwyn
 
-### 📚 Documentation
-- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/a9e3e0c8e7e621d93a0d4987ed4ad6d168b3d655) - @actions-user
-- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/a14d5f41533048629ff8a933c40f0e748ca53498) - @RogerSelwyn
-- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/e25c0d67ce77f4b48e027845b44ead2d509f7d44) - @RogerSelwyn
-
 ### 🔖 Release
 - [Release v2.0.4](https://github.com/RogerSelwyn/GeniusHub/commit/14d1ff30520c2275edc8a29539c1d0ccffb82fee) - @RogerSelwyn
 
@@ -36,9 +31,6 @@
 ## v2.0.1 (2025/08/28)
 ### 🐛 Fixes
 - [Fixed Electric Switch entity not created](https://github.com/RogerSelwyn/GeniusHub/commit/ba19ffcb4b622681716ca6b72f52e15a1ac65393) - @RogerSelwyn
-
-### 📚 Documentation
-- [Update CHANGELOG.md](https://github.com/RogerSelwyn/GeniusHub/commit/5673e734e02c9d83234522980c2fe702616a9f29) - @RogerSelwyn
 
 ### 🔖 Release
 - [Release v2.0.1](https://github.com/RogerSelwyn/GeniusHub/commit/f2238a7e9a61dc53ae4ac4aebeb285516964b70a) - @RogerSelwyn
