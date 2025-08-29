@@ -3,4 +3,4 @@
 
 ![GitHub release](https://img.shields.io/github/v/release/RogerSelwyn/GeniusHub) [![maintained](https://img.shields.io/maintenance/yes/2025.svg)](#) [![maintainer](https://img.shields.io/badge/maintainer-%20%40RogerSelwyn-blue.svg)](https://github.com/RogerSelwyn) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 
-A copy of the HA core `geniushub` integration modified to meet my own needs.
+A copy of the HA core `geniushub` integration modified to fix issues and add extra features.
