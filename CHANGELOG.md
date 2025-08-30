@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.0.5 (2025/08/30)
+### 🧰 Maintenance
+- [Minor tweaks plus code tested for ESW fix](https://github.com/RogerSelwyn/GeniusHub/commit/75fb81745d5a99ff976787d2b6f9bd6d62b71798) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.0.5](https://github.com/RogerSelwyn/GeniusHub/commit/7a963783b8fda2c409910b1ad5b999294944a80d) - @RogerSelwyn
+- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/49e4f1daf531e5e8a604a917dd8e02b3fde166e2) - @actions-user
+
+
+
+
 ## v2.0.4 (2025/08/28)
 ### 🧰 Maintenance
 - [Handle failure of geniushub-client to handle electric switch issue](https://github.com/RogerSelwyn/GeniusHub/commit/f8c1df8534f925bede6a5db99fb0079a7933c7e4) - @RogerSelwyn
