@@ -7,7 +7,12 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import GH_BINARY_SENSOR_STATE_ATTR, GH_RECEIVER_TYPE
+from .const import (
+    GH_BINARY_SENSOR_STATE_ATTR,
+    GH_DUAL_CHANNEL_RECEIVER,
+    # GH_ELECTRIC_SWITCH_TYPE,
+    GH_RECEIVER_TYPE,
+)
 from .entity import GeniusDevice
 
 
@@ -23,7 +28,16 @@ async def async_setup_entry(
     async_add_entities(
         GeniusBinarySensor(coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
         for d in coordinator.client.device_objs
-        if (d.data.get("type") and GH_RECEIVER_TYPE in d.data.get("type"))
+        # if (
+        #     GH_RECEIVER_TYPE in d.data["type"]
+        #     and d.data["type"] != GH_DUAL_CHANNEL_RECEIVER
+        # )
+        # or GH_ELECTRIC_SWITCH_TYPE in d.data["type"]
+        if (
+            d.data.get("type")
+            and GH_RECEIVER_TYPE in d.data.get("type")
+            and d.data["type"] != GH_DUAL_CHANNEL_RECEIVER
+        )
         or (
             not d.data.get("type")
             and GH_BINARY_SENSOR_STATE_ATTR in d.data.get("state")
@@ -40,6 +54,7 @@ class GeniusBinarySensor(GeniusDevice, BinarySensorEntity):
 
         self._state_attr = state_attr
 
+        # self._attr_name = f"{device.type} {device.id}"
         if device.type:
             self._attr_name = f"{device.type} {device.id}"
         else:

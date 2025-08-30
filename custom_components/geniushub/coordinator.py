@@ -51,6 +51,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
                 )
             return
         except KeyError as err:
+            # Probably can be removed when electric switch properly identified
             if err.args[0] == "type":
                 self._connect_error = True
                 _LOGGER.error(

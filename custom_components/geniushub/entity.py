@@ -16,6 +16,7 @@ from .const import (
     GH_ZONE_ATTRS,
     IDENTIFIER_DEVICE,
     IDENTIFIER_ZONE,
+    SERIAL_NO,
 )
 
 
@@ -72,12 +73,10 @@ class GeniusDevice(GeniusEntity):
     @property
     def device_info(self) -> DeviceInfo:
         """Entity device info"""
+        via_device = IDENTIFIER_ZONE.format(self._device.assigned_zone.id)
 
-        if self._device.assigned_zone:
-            via_device = IDENTIFIER_ZONE.format(self._device.assigned_zone.id)
-        else:
-            via_device = self._hub.hub_uid
-
+        # name = f"{self._device.type.title()} {self._device.id}"
+        # model = self._device.type
         if self._device.type:
             name = f"{self._device.type.title()} {self._device.id}"
             model = self._device.type
@@ -91,6 +90,7 @@ class GeniusDevice(GeniusEntity):
             name=name,
             manufacturer=ATTR_MANUFACTURER,
             model=model,
+            serial_number=SERIAL_NO.format("Device", self._device.id),
         )
 
     async def async_update(self) -> None:

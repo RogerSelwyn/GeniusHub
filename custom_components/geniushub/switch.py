@@ -17,6 +17,7 @@ from .const import (
     DOMAIN,
     GH_ON_OFF_ZONE,
     IDENTIFIER_ZONE,
+    SERIAL_NO,
     SET_SWITCH_OVERRIDE_SCHEMA,
     SVC_SET_SWITCH_OVERRIDE,
 )
@@ -77,6 +78,7 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
             via_device=(DOMAIN, self._hub.hub_uid),
             manufacturer=ATTR_MANUFACTURER,
             model=f"{self._zone.data['type'].title()} Zone",
+            serial_number=SERIAL_NO.format("Zone", self._zone.id),
         )
 
     async def async_turn_off(self, **kwargs: Any) -> None:

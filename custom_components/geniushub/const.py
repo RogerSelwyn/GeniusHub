@@ -37,6 +37,7 @@ PLATFORMS = (
 ATTR_MANUFACTURER = "Genius Hub"
 IDENTIFIER_ZONE = "zone-{0}"
 IDENTIFIER_DEVICE = "device-{0}"
+SERIAL_NO = "{0} Id: {1}"
 
 ### __init__ Constants Start ###
 MAC_ADDRESS_REGEXP = r"^([0-9A-F]{2}:){5}([0-9A-F]{2})$"
@@ -101,6 +102,9 @@ GH_ZONES = ["radiator", "wet underfloor"]
 
 ### Binary Sensor Constants Start ###
 GH_BINARY_SENSOR_STATE_ATTR = "outputOnOff"
+GH_DUAL_CHANNEL_RECEIVER = "Dual Channel Receiver"
+GH_ELECTRIC_SWITCH_TYPE = "Electric Switch"
+GH_ELECTRIC_SWITCH_TYPE = "Electric Switch"
 GH_RECEIVER_TYPE = "Receiver"
 ### Binary Sensor Constants End ###
 

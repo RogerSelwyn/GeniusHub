@@ -28,6 +28,7 @@ from .const import (
     HA_HVAC_TO_GH,
     HA_PRESET_TO_GH,
     IDENTIFIER_ZONE,
+    SERIAL_NO,
     SET_ZONE_MODE_SCHEMA,
     SET_ZONE_OVERRIDE_SCHEMA,
     SVC_SET_ZONE_MODE,
@@ -132,6 +133,7 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
             via_device=(DOMAIN, self._hub.hub_uid),
             manufacturer=ATTR_MANUFACTURER,
             model=f"{self._zone.data['type'].title()} Zone",
+            serial_number=SERIAL_NO.format("Zone", self._zone.id),
         )
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:

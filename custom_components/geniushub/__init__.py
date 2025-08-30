@@ -19,7 +19,7 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, PLATFORMS
+from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, PLATFORMS, SERIAL_NO
 from .coordinator import GeniusCoordinator
 
 _LOGGER = logging.getLogger(__name__)
@@ -131,4 +131,5 @@ def _create_hub_devices(
             name=zone0.name,
             manufacturer=ATTR_MANUFACTURER,
             model=zone0.name,
+            serial_number=SERIAL_NO.format("Zone", zone0.id),
         )
