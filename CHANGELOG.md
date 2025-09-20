@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.0.6 (2025/09/20)
+### 🐛 Fixes
+- [Fix missing device_info for water heater](https://github.com/RogerSelwyn/GeniusHub/commit/a3d3b4db1ccdf91c83054a8432d7c058a310dcda) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump actions/setup-python from 5 to 6](https://github.com/RogerSelwyn/GeniusHub/commit/0ed21bb275f855dd125bbd63fffb1601328e5df1) - @dependabot[bot]
+
+### 🔖 Release
+- [Release v2.0.6](https://github.com/RogerSelwyn/GeniusHub/commit/13324837e15e12ce4ec77ecee2626c875e84e452) - @RogerSelwyn
+
+
+
+
 ## v2.0.5 (2025/08/30)
 ### 🧰 Maintenance
 - [Minor tweaks plus code tested for ESW fix](https://github.com/RogerSelwyn/GeniusHub/commit/75fb81745d5a99ff976787d2b6f9bd6d62b71798) - @RogerSelwyn
