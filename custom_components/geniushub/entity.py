@@ -158,6 +158,19 @@ class GeniusHeatingZone(GeniusZone):
         """Return the unit of measurement."""
         return UnitOfTemperature.CELSIUS
 
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Entity device info"""
+
+        return DeviceInfo(
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
+            name=self._zone.name,
+            via_device=(DOMAIN, self._hub.hub_uid),
+            manufacturer=ATTR_MANUFACTURER,
+            model=f"{self._zone.data['type'].title()} Zone",
+            serial_number=SERIAL_NO.format("Zone", self._zone.id),
+        )
+
     async def async_set_temperature(self, **kwargs) -> None:
         """Set a new target temperature for this zone."""
         await self._zone.set_override(

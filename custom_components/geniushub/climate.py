@@ -15,20 +15,15 @@ from homeassistant.components.climate import (
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import entity_platform
-from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
-    ATTR_MANUFACTURER,
-    DOMAIN,
     GH_HVAC_TO_HA,
     GH_PRESET_TO_HA,
     GH_ZONES,
     HA_HVAC_TO_GH,
     HA_PRESET_TO_GH,
-    IDENTIFIER_ZONE,
-    SERIAL_NO,
     SET_ZONE_MODE_SCHEMA,
     SET_ZONE_OVERRIDE_SCHEMA,
     SVC_SET_ZONE_MODE,
@@ -122,19 +117,6 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
         if "occupied" in self._zone.data:  # if has a movement sensor
             return [PRESET_ACTIVITY, PRESET_BOOST]
         return [PRESET_BOOST]
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Entity device info"""
-
-        return DeviceInfo(
-            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
-            name=self._zone.name,
-            via_device=(DOMAIN, self._hub.hub_uid),
-            manufacturer=ATTR_MANUFACTURER,
-            model=f"{self._zone.data['type'].title()} Zone",
-            serial_number=SERIAL_NO.format("Zone", self._zone.id),
-        )
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set a new hvac mode."""
