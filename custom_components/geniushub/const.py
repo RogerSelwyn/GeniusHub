@@ -91,7 +91,11 @@ SET_SWITCH_OVERRIDE_SCHEMA: VolDictType = {
 
 ### Climate Constants Start ###
 # GeniusHub Zones support: Off, Timer, Override/Boost, Footprint & Linked modes
-HA_HVAC_TO_GH = {HVACMode.OFF: "off", HVACMode.HEAT: "timer"}
+HA_HVAC_TO_GH = {
+    HVACMode.OFF: "off",
+    HVACMode.AUTO: "timer",
+    HVACMode.HEAT: "override",
+}
 GH_HVAC_TO_HA = {v: k for k, v in HA_HVAC_TO_GH.items()}
 
 HA_PRESET_TO_GH = {PRESET_ACTIVITY: "footprint", PRESET_BOOST: "override"}

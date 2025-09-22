@@ -88,7 +88,7 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
     @property
     def hvac_mode(self) -> HVACMode:
         """Return hvac operation ie. heat, cool mode."""
-        return GH_HVAC_TO_HA.get(self._zone.data["mode"], HVACMode.HEAT)
+        return GH_HVAC_TO_HA.get(self._zone.data["mode"], HVACMode.AUTO)
 
     @property
     def hvac_modes(self) -> list[HVACMode]:
@@ -99,11 +99,13 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
     def hvac_action(self) -> HVACAction | None:
         """Return the current running hvac operation if supported."""
         if "_state" in self._zone.data:  # only for v3 API
+            if self._zone.data["mode"] == "off":
+                return HVACAction.OFF
             if self._zone.data["output"] == 1:
                 return HVACAction.HEATING
-            if not self._zone.data["_state"].get("bIsActive"):
-                return HVACAction.OFF
+            # if not self._zone.data["_state"].get("bIsActive"):
             return HVACAction.IDLE
+
         return None
 
     @property
