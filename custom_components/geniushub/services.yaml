@@ -2,14 +2,13 @@
 # Describes the format for available services
 
 set_zone_mode:
+  target:
+    entity:
+      integration: geniushub
+      domain: climate
   fields:
-    entity_id:
-      required: true
-      selector:
-        entity:
-          integration: geniushub
-          domain: climate
     mode:
+      example: timer
       required: true
       selector:
         select:
@@ -19,14 +18,13 @@ set_zone_mode:
             - "footprint"
 
 set_zone_override:
+  target:
+    entity:
+      integration: geniushub
+      domain: climate
   fields:
-    entity_id:
-      required: true
-      selector:
-        entity:
-          integration: geniushub
-          domain: climate
     temperature:
+      example: 15
       required: true
       selector:
         number:
