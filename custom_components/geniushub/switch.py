@@ -6,7 +6,6 @@ from typing import Any
 
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_platform
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
@@ -18,8 +17,6 @@ from .const import (
     GH_ON_OFF_ZONE,
     IDENTIFIER_ZONE,
     SERIAL_NO,
-    SET_SWITCH_OVERRIDE_SCHEMA,
-    SVC_SET_SWITCH_OVERRIDE,
 )
 from .entity import GeniusZone
 
@@ -37,15 +34,6 @@ async def async_setup_entry(
         GeniusSwitch(coordinator, z)
         for z in coordinator.client.zone_objs
         if z.data.get("type") == GH_ON_OFF_ZONE
-    )
-
-    # Register custom services
-    platform = entity_platform.async_get_current_platform()
-
-    platform.async_register_entity_service(
-        SVC_SET_SWITCH_OVERRIDE,
-        SET_SWITCH_OVERRIDE_SCHEMA,
-        "async_turn_on",
     )
 
 

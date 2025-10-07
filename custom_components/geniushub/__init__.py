@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 
 import aiohttp
+import homeassistant
 from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -18,14 +19,22 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.typing import ConfigType
 
 from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, PLATFORMS, SERIAL_NO
 from .coordinator import GeniusCoordinator
+from .services import async_setup_services
 
 _LOGGER = logging.getLogger(__name__)
 
 
 type GeniusHubConfigEntry = ConfigEntry[GeniusCoordinator]
+
+
+async def async_setup(hass: homeassistant, config: ConfigType) -> bool:  # pylint: disable=unused-argument
+    """Setup for Geniushub."""
+    async_setup_services(hass)
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> bool:
@@ -68,47 +77,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
         return False
     coordinator.make_debug_log_entries()
 
-    # setup_service_functions(hass)
-
     _create_hub_devices(hass, entry, unique_id, api, coordinator.client.zone_by_id[0])
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
-
-
-# @callback
-# def setup_service_functions(hass: HomeAssistant):
-#     """Set up the service functions."""
-
-#     @verify_domain_control(hass, DOMAIN)
-#     async def set_zone_mode(call: ServiceCall) -> None:
-#         """Set the system mode."""
-#         entity_id = call.data[ATTR_ENTITY_ID]
-
-#         registry = er.async_get(hass)
-#         registry_entry = registry.async_get(entity_id)
-
-#         if registry_entry is None or registry_entry.platform != DOMAIN:
-#             raise ValueError(f"'{entity_id}' is not a known {DOMAIN} entity")
-
-#         if registry_entry.domain != "climate":
-#             raise ValueError(f"'{entity_id}' is not an {DOMAIN} zone")
-
-#         payload = {
-#             "unique_id": registry_entry.unique_id,
-#             "service": call.service,
-#             "data": call.data,
-#         }
-
-#         async_dispatcher_send(hass, DOMAIN, payload)
-
-#     hass.services.async_register(
-#         DOMAIN, SVC_SET_ZONE_MODE, set_zone_mode, schema=SET_ZONE_MODE_SCHEMA
-#     )
-#     hass.services.async_register(
-#         DOMAIN, SVC_SET_ZONE_OVERRIDE, set_zone_mode, schema=SET_ZONE_OVERRIDE_SCHEMA
-#     )
 
 
 def _create_hub_devices(

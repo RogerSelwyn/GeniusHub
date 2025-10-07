@@ -14,7 +14,8 @@ from homeassistant.components.climate import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceValidationError
-from homeassistant.helpers import entity_platform
+
+# from homeassistant.helpers import entity_platform
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
@@ -24,10 +25,6 @@ from .const import (
     GH_ZONES,
     HA_HVAC_TO_GH,
     HA_PRESET_TO_GH,
-    SET_ZONE_MODE_SCHEMA,
-    SET_ZONE_OVERRIDE_SCHEMA,
-    SVC_SET_ZONE_MODE,
-    SVC_SET_ZONE_OVERRIDE,
 )
 from .entity import GeniusHeatingZone
 
@@ -41,25 +38,10 @@ async def async_setup_entry(
 
     coordinator = entry.runtime_data
 
-    await _async_register_services()
     async_add_entities(
         GeniusClimateZone(coordinator, z)
         for z in coordinator.client.zone_objs
         if z.data.get("type") in GH_ZONES
-    )
-
-
-async def _async_register_services():
-    platform = entity_platform.async_get_current_platform()
-    platform.async_register_entity_service(
-        SVC_SET_ZONE_MODE,
-        SET_ZONE_MODE_SCHEMA,
-        f"async_{SVC_SET_ZONE_MODE}",
-    )
-    platform.async_register_entity_service(
-        SVC_SET_ZONE_OVERRIDE,
-        SET_ZONE_OVERRIDE_SCHEMA,
-        f"async_{SVC_SET_ZONE_OVERRIDE}",
     )
 
 
