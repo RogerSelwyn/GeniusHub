@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.7 (2025/09/22)
+### 🧰 Maintenance
+- [Tweak the HVAC modes to more accurately represent GH](https://github.com/RogerSelwyn/GeniusHub/commit/014baae5cab7481af09436fe3cbf1cd259267b24) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.0.7](https://github.com/RogerSelwyn/GeniusHub/commit/69bd096621e4f4550e5750b15f2c47fd6ca08f57) - @RogerSelwyn
+
+
+
+
 ## v2.0.6 (2025/09/20)
 ### 🐛 Fixes
 - [Fix missing device_info for water heater](https://github.com/RogerSelwyn/GeniusHub/commit/a3d3b4db1ccdf91c83054a8432d7c058a310dcda) - @RogerSelwyn
