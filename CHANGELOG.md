@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.0.8 (2025/10/07)
+### 🧰 Maintenance
+- [Migrate to new method for registering services](https://github.com/RogerSelwyn/GeniusHub/commit/a3b6b00233c4c8a92ecc7f2876480af6b333d0a4) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.12.10 to 0.13.1](https://github.com/RogerSelwyn/GeniusHub/commit/79197987d0a2d62a59dfba6c1a8a8f2dac526787) - @dependabot[bot]
+
+### 🔖 Release
+- [Release v2.0.8](https://github.com/RogerSelwyn/GeniusHub/commit/743317cad36353c0bb63663b74a60029b1f8cf25) - @RogerSelwyn
+
+
+
+
 ## v2.0.7 (2025/09/22)
 ### 🧰 Maintenance
 - [Tweak the HVAC modes to more accurately represent GH](https://github.com/RogerSelwyn/GeniusHub/commit/014baae5cab7481af09436fe3cbf1cd259267b24) - @RogerSelwyn
