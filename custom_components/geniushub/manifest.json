@@ -13,5 +13,5 @@
   "requirements": [
     "git+https://github.com/RogerSelwyn/geniushub-client#geniushub-client==0.8.0"
   ],
-  "version": "v2.0.8"
+  "version": "v2.1.0"
 }
