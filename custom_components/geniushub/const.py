@@ -108,7 +108,6 @@ GH_ZONES = ["radiator", "wet underfloor"]
 GH_BINARY_SENSOR_STATE_ATTR = "outputOnOff"
 GH_DUAL_CHANNEL_RECEIVER = "Dual Channel Receiver"
 GH_ELECTRIC_SWITCH_TYPE = "Electric Switch"
-GH_ELECTRIC_SWITCH_TYPE = "Electric Switch"
 GH_RECEIVER_TYPE = "Receiver"
 ### Binary Sensor Constants End ###
 
