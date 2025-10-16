@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.1.0 (2025/10/16)
+### 🐛 Fixes
+- [Correct typing of hass](https://github.com/RogerSelwyn/GeniusHub/commit/2fd840540621be25f60045059e182e2988970541) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Add example data to services](https://github.com/RogerSelwyn/GeniusHub/commit/195801ccf9f2df19aa21a3acfbce48e8d6bce4e5) - @RogerSelwyn
+- [Add support for new devices](https://github.com/RogerSelwyn/GeniusHub/commit/5c26801e54c37d48e7e611ec5f6f0aa50f1dd150) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/GeniusHub/commit/bbdd4c2ee4f7267ee96de461a6020acf60556d96) - @actions-user
+
+### 🔖 Release
+- [Release v2.1.0](https://github.com/RogerSelwyn/GeniusHub/commit/40049568b579a2b27ecf3c5afbb103b1ecdc7827) - @RogerSelwyn
+
+
+
+
 ## v2.0.8 (2025/10/07)
 ### 🧰 Maintenance
 - [Migrate to new method for registering services](https://github.com/RogerSelwyn/GeniusHub/commit/a3b6b00233c4c8a92ecc7f2876480af6b333d0a4) - @RogerSelwyn
