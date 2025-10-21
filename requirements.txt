@@ -1,1 +1,1 @@
-geniushub-client==0.7.1
+git+https://github.com/RogerSelwyn/geniushub-client#geniushub-client==0.8.0
