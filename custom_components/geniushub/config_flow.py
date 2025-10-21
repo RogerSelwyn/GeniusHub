@@ -29,6 +29,13 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
             menu_options=["local_api", "cloud_api"],
         )
 
+    async def async_step_reconfigure(
+        self,
+        user_input: dict[str, Any] | None = None,  # pylint: disable=unused-argument
+    ) -> ConfigFlowResult:
+        """Handle the reconfigure step."""
+        return await self.async_step_user()
+
     async def async_step_local_api(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
