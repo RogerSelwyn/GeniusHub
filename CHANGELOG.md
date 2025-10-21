@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.1.1 (2025/10/21)
+### 🧰 Maintenance
+- [Add ability to reload](https://github.com/RogerSelwyn/GeniusHub/commit/57d71f6982407a10877139b374dd51526635f194) - @RogerSelwyn
+- [Add ability to reconfigure](https://github.com/RogerSelwyn/GeniusHub/commit/62459179f0f4a3f7261dcc042b342947a2773887) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.13.1 to 0.14.1](https://github.com/RogerSelwyn/GeniusHub/commit/7e2566eb9188a9cdd615df49c4e4e8e9b3fe2f53) - @dependabot[bot]
+
+### 🔖 Release
+- [Release v2.1.1](https://github.com/RogerSelwyn/GeniusHub/commit/edd308dd2ff225938f5773ea38feffc3a395f6e5) - @RogerSelwyn
+
+
+
+
 ## v2.1.0 (2025/10/16)
 ### 🐛 Fixes
 - [Correct typing of hass](https://github.com/RogerSelwyn/GeniusHub/commit/2fd840540621be25f60045059e182e2988970541) - @RogerSelwyn
