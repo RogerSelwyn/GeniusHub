@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 
 import aiohttp
-import homeassistant
 from geniushubclient import GeniusHub
+from geniushubclient.zone import GeniusZone
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
@@ -31,7 +31,7 @@ _LOGGER = logging.getLogger(__name__)
 type GeniusHubConfigEntry = ConfigEntry[GeniusCoordinator]
 
 
-async def async_setup(hass: homeassistant, config: ConfigType) -> bool:  # pylint: disable=unused-argument
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:  # pylint: disable=unused-argument
     """Setup for Geniushub."""
     async_setup_services(hass)
     return True
@@ -90,7 +90,11 @@ async def async_unload_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -
 
 
 def _create_hub_devices(
-    hass: HomeAssistant, entry: GeniusHubConfigEntry, hub_uid: str, api: str, zone0: any
+    hass: HomeAssistant,
+    entry: GeniusHubConfigEntry,
+    hub_uid: str,
+    api: str,
+    zone0: GeniusZone,
 ):
     device_registry = dr.async_get(hass)
     hub_identifiers = (DOMAIN, hub_uid)
