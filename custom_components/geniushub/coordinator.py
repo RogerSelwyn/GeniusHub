@@ -32,7 +32,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
         self.hub_uid = hub_uid
         self._connect_error = False
 
-    async def _async_update_data(self) -> None:
+    async def _async_update_data(self) -> GeniusHub | None:
         """Update the geniushub client's data."""
         try:
             await self.client.update()
@@ -41,7 +41,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
                 _LOGGER.warning("Connection to geniushub re-established")
         except (
             aiohttp.ClientResponseError,
-            aiohttp.client_exceptions.ClientConnectorError,
+            aiohttp.ClientConnectorError,
         ) as err:
             if not self._connect_error:
                 self._connect_error = True

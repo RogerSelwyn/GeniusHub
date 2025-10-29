@@ -27,7 +27,7 @@ def async_setup_services(hass: HomeAssistant) -> None:
         DOMAIN,
         SVC_SET_ZONE_MODE,
         entity_domain=CLIMATE_DOMAIN,
-        schema=SET_ZONE_MODE_SCHEMA,
+        schema=SET_ZONE_MODE_SCHEMA,  # pyright: ignore[reportArgumentType]
         func=f"async_{SVC_SET_ZONE_MODE}",
     )
     service.async_register_platform_entity_service(
