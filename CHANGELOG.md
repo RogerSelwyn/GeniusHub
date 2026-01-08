@@ -1,5 +1,26 @@
 # Changelog
 
+## v2.1.2 (2026/01/08)
+### 🐛 Fixes
+- [Modify to use alternate version of geniushubclient](https://github.com/RogerSelwyn/GeniusHub/commit/8df811acb5a924ac7fd5ffca688543b0d2f04dda) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Minor linting changes](https://github.com/RogerSelwyn/GeniusHub/commit/2646ea89d06523b5195a6ccce42c1a48585b9412) - @RogerSelwyn
+- [Linting changes](https://github.com/RogerSelwyn/GeniusHub/commit/c95a75624acab8d25548827e1c1b485e033d5b9f) - @RogerSelwyn
+- [Add issue forms](https://github.com/RogerSelwyn/GeniusHub/commit/a0ad70be88b014bb3ddf1d73a3ebd8e713ea230d) - @RogerSelwyn
+- [Add stale issue processing](https://github.com/RogerSelwyn/GeniusHub/commit/64a9f305d82f78ca487383adc2d4724ca36804b1) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.14.1 to 0.14.4](https://github.com/RogerSelwyn/GeniusHub/commit/e53286ef3df8505a91498185973ab049b2a403b7) - @dependabot[bot]
+- [Bump actions/checkout from 5 to 6](https://github.com/RogerSelwyn/GeniusHub/commit/9d31b0ac8deaf62020802351332d2cf019892a9a) - @dependabot[bot]
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/GeniusHub/commit/8cf353f1a286d1e38a14ab52258c73a079d39a13) - @actions-user
+
+### 🔖 Release
+- [Release v2.1.2](https://github.com/RogerSelwyn/GeniusHub/commit/8f12a66596d35b7a042daebc5dd907decb510be2) - @RogerSelwyn
+
+
+
+
 ## v2.1.1 (2025/10/21)
 ### 🧰 Maintenance
 - [Add ability to reload](https://github.com/RogerSelwyn/GeniusHub/commit/57d71f6982407a10877139b374dd51526635f194) - @RogerSelwyn
