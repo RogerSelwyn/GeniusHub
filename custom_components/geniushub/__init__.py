@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 
 import aiohttp
-from geniushubclient import GeniusHub
-from geniushubclient.zone import GeniusZone
+from geniushubclientalt import GeniusHub
+from geniushubclientalt.zone import GeniusZone
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
