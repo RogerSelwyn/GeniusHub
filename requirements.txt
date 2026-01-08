@@ -1,1 +1,1 @@
-git+https://github.com/RogerSelwyn/geniushub-client#geniushub-client==0.8.0
+geniushubclientalt>=0.8.2
