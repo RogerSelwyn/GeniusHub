@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.3 (2026/01/11)
+### 🧰 Maintenance
+- [Handle intermittent payload error from hub](https://github.com/RogerSelwyn/GeniusHub/commit/b5daa92b7c75164b30714947ac848ca3f6732a86) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update README.md](https://github.com/RogerSelwyn/GeniusHub/commit/02cc16aa72362b06d4ba101c9c2acadb8b5537d5) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.1.3](https://github.com/RogerSelwyn/GeniusHub/commit/3b34e4c81fc2c37b1ca0e26d6de1c3e07a02503c) - @RogerSelwyn
+
+
+
+
 ## v2.1.2 (2026/01/08)
 ### 🐛 Fixes
 - [Modify to use alternate version of geniushubclient](https://github.com/RogerSelwyn/GeniusHub/commit/8df811acb5a924ac7fd5ffca688543b0d2f04dda) - @RogerSelwyn
