@@ -6,7 +6,7 @@ import aiohttp
 from geniushubclientalt import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import DOMAIN, SCAN_INTERVAL
 
@@ -30,35 +30,55 @@ class GeniusCoordinator(DataUpdateCoordinator):
         self.hass = hass
         self.client = client
         self.hub_uid = hub_uid
-        self._connect_error = False
+        self._payload_error = False
+        self._type_error = False
 
     async def _async_update_data(self) -> GeniusHub | None:
         """Update the geniushub client's data."""
         try:
             await self.client.update()
-            if self._connect_error:
-                self._connect_error = False
-                _LOGGER.warning("Connection to geniushub re-established")
+            self._type_error = False
+            if self._payload_error:
+                self._payload_error = False
+                _LOGGER.info(
+                    "Payload error resolved, connection to geniushub re-established"
+                )
         except (
             aiohttp.ClientResponseError,
             aiohttp.ClientConnectorError,
-        ) as err:
-            if not self._connect_error:
-                self._connect_error = True
-                _LOGGER.error(
-                    "Connection to geniushub failed (unable to update), message is: %s",
-                    err,
-                )
-            return
+        ) as api_err:
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="error_communicating_with_api",
+                translation_placeholders={
+                    "api_err": str(api_err),
+                },
+            ) from api_err
         except KeyError as err:
             # Probably can be removed when electric switch properly identified
             if err.args[0] == "type":
-                self._connect_error = True
-                _LOGGER.error(
-                    "Error on client update, likely Electric Switch gone missing: %s",
-                    err,
-                )
+                if not self._type_error:
+                    self._type_error = True
+                    _LOGGER.error(
+                        "Error on client update, likely Electric Switch gone missing: %s",
+                        err,
+                    )
             return
+        except aiohttp.ClientPayloadError as api_err:
+            if not self._payload_error:
+                self._payload_error = True
+                _LOGGER.info(
+                    "Connection to geniushub failed with payload error, message is: %s",
+                    api_err,
+                )
+                return
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="error_communicating_with_api",
+                translation_placeholders={
+                    "api_err": str(api_err),
+                },
+            ) from api_err
 
         self.make_debug_log_entries()
 

@@ -1,80 +1,97 @@
 {
-    "config": {
-        "abort": {
-            "already_configured": "Device is already configured"
-        },
-        "error": {
-            "cannot_connect": "Failed to connect",
-            "invalid_auth": "Invalid authentication",
-            "invalid_host": "Invalid hostname or IP address",
-            "unknown": "Unexpected error"
-        },
-        "step": {
-            "cloud_api": {
-                "data": {
-                    "token": "Access token"
-                },
-                "title": "Genius Hub cloud configuration"
-            },
-            "local_api": {
-                "data": {
-                    "host": "Host",
-                    "password": "Password",
-                    "username": "Username"
-                },
-                "title": "Genius Hub local configuration"
-            },
-            "user": {
-                "menu_options": {
-                    "cloud_api": "Cloud: API token",
-                    "local_api": "Local: IP address and user credentials"
-                },
-                "title": "Genius Hub configuration"
-            }
-        }
+  "config": {
+    "abort": {
+      "already_configured": "Device is already configured"
     },
-    "services": {
-        "set_switch_override": {
-            "description": "Overrides switch for a given duration.",
-            "fields": {
-                "duration": {
-                    "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
-                    "name": "Duration"
-                }
-            },
-            "name": "Set switch override"
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "invalid_host": "Invalid hostname or IP address",
+      "unknown": "Unexpected error"
+    },
+    "step": {
+      "cloud_api": {
+        "data": {
+          "token": "Access token"
         },
-        "set_zone_mode": {
-            "description": "Sets the zone to an operating mode.",
-            "fields": {
-                "entity_id": {
-                    "description": "The zone's entity ID.",
-                    "name": "Entity"
-                },
-                "mode": {
-                    "description": "The zone's operating mode.",
-                    "name": "Mode"
-                }
-            },
-            "name": "Set zone mode"
+        "title": "Genius Hub cloud configuration"
+      },
+      "local_api": {
+        "data": {
+          "host": "Host",
+          "password": "Password",
+          "username": "Username"
         },
-        "set_zone_override": {
-            "description": "Overrides the zone's setpoint for a given duration.",
-            "fields": {
-                "duration": {
-                    "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
-                    "name": "Duration"
-                },
-                "entity_id": {
-                    "description": "The zone's entity ID.",
-                    "name": "Entity"
-                },
-                "temperature": {
-                    "description": "The target temperature.",
-                    "name": "Temperature"
-                }
-            },
-            "name": "Set zone override"
-        }
+        "title": "Genius Hub local configuration"
+      },
+      "user": {
+        "menu_options": {
+          "cloud_api": "Cloud: API token",
+          "local_api": "Local: IP address and user credentials"
+        },
+        "title": "Genius Hub configuration"
+      }
     }
+  },
+  "services": {
+    "set_switch_override": {
+      "description": "Overrides switch for a given duration.",
+      "fields": {
+        "duration": {
+          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+          "name": "Duration"
+        }
+      },
+      "name": "Set switch override"
+    },
+    "set_zone_mode": {
+      "description": "Sets the zone to an operating mode.",
+      "fields": {
+        "entity_id": {
+          "description": "The zone's entity ID.",
+          "name": "Entity"
+        },
+        "mode": {
+          "description": "The zone's operating mode.",
+          "name": "Mode"
+        }
+      },
+      "name": "Set zone mode"
+    },
+    "set_zone_override": {
+      "description": "Overrides the zone's setpoint for a given duration.",
+      "fields": {
+        "duration": {
+          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+          "name": "Duration"
+        },
+        "entity_id": {
+          "description": "The zone's entity ID.",
+          "name": "Entity"
+        },
+        "temperature": {
+          "description": "The target temperature.",
+          "name": "Temperature"
+        }
+      },
+      "name": "Set zone override"
+    }
+  },
+  "exceptions": {
+    "homelink_oauth_unavailable": {
+      "message": "OAuth2 implementation temporarily unavailable, will retry"
+    },
+    "homelink_mqtt_invalid": {
+      "message": "HomeLink MQTT credentials/topic are invalid. Please reconfigure"
+    },
+    "homelink_mqtt_unavailable": {
+      "message": "HomeLink MQTT server not available"
+    },
+    "error_communicating_with_api": {
+      "message": "Connection to geniushub failed (unable to update), message is: {api_err}"
+    },
+    "timeout_communicating_with_api": {
+      "message": "Timeout communicating with HL API: {err_traceback}"
+    }
+  }
 }
