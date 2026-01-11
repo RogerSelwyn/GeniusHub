@@ -56,13 +56,12 @@ class GeniusCoordinator(DataUpdateCoordinator):
             ) from api_err
         except KeyError as err:
             # Probably can be removed when electric switch properly identified
-            if err.args[0] == "type":
-                if not self._type_error:
-                    self._type_error = True
-                    _LOGGER.error(
-                        "Error on client update, likely Electric Switch gone missing: %s",
-                        err,
-                    )
+            if err.args[0] == "type" and not self._type_error:
+                self._type_error = True
+                _LOGGER.error(
+                    "Error on client update, likely Electric Switch gone missing: %s",
+                    err,
+                )
             return
         except aiohttp.ClientPayloadError as api_err:
             if not self._payload_error:
