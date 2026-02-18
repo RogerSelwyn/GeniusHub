@@ -1,5 +1,25 @@
 # Changelog
 
+## v2.1.4 (2026/02/18)
+### 🐛 Fixes
+- [Handle intermittent timeout errors from hub](https://github.com/RogerSelwyn/GeniusHub/commit/f83bb87eead6fa5df72fcf1a55dc1c16ddadb217) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Sourcery improvement](https://github.com/RogerSelwyn/GeniusHub/commit/8a0eaa03407d7a022a7726b1a65364e254887005) - @RogerSelwyn
+- [Modify to use geniushub-client not geniushubclientalt](https://github.com/RogerSelwyn/GeniusHub/commit/a0326c55da4ce2bbd8457d7f5c189219f94132a3) - @RogerSelwyn
+- [Change to use Manzanotti geniushubclient](https://github.com/RogerSelwyn/GeniusHub/commit/794ed859d7b546b341781706c6d0aa6e771c856d) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.14.4 to 0.15.0](https://github.com/RogerSelwyn/GeniusHub/commit/8bd1fc547e9276d638a5839dd4044f150d530bda) - @dependabot[bot]
+- [Update to latest geniushubclient](https://github.com/RogerSelwyn/GeniusHub/commit/927b14e725733820bc50f8c8c131d51767010273) - @RogerSelwyn
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/GeniusHub/commit/04d780c1b2b4cc849beb59ba194cfb66500e0e59) - @actions-user
+
+### 🔖 Release
+- [Release v2.1.4](https://github.com/RogerSelwyn/GeniusHub/commit/bed3ae32045b92d11419732f7997c71de68c7cb1) - @RogerSelwyn
+
+
+
+
 ## v2.1.3 (2026/01/11)
 ### 🧰 Maintenance
 - [Handle intermittent payload error from hub](https://github.com/RogerSelwyn/GeniusHub/commit/b5daa92b7c75164b30714947ac848ca3f6732a86) - @RogerSelwyn
