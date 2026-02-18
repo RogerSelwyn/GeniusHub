@@ -3,7 +3,7 @@
 import logging
 
 import aiohttp
-from geniushubclientalt import GeniusHub
+from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed

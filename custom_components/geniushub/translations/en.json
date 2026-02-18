@@ -91,7 +91,7 @@
       "message": "Connection to geniushub failed (unable to update), message is: {api_err}"
     },
     "timeout_communicating_with_api": {
-      "message": "Timeout communicating with HL API: {err_traceback}"
+      "message": "Timeout communicating with GH API: {err_traceback}"
     }
   }
 }

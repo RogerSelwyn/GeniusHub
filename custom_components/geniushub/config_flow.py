@@ -7,7 +7,7 @@ from http import HTTPStatus
 from typing import Any, Self
 
 import aiohttp
-from geniushubclientalt import GeniusService
+from geniushubclient import GeniusService
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
