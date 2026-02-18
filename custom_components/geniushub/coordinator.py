@@ -1,8 +1,10 @@
 """Coordinator for Genius Hub System"""
 
 import logging
+import traceback
 
 import aiohttp
+import requests
 from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -31,6 +33,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
         self.client = client
         self.hub_uid = hub_uid
         self._payload_error = False
+        self._timeout_error = False
         self._type_error = False
 
     async def _async_update_data(self) -> GeniusHub | None:
@@ -42,6 +45,11 @@ class GeniusCoordinator(DataUpdateCoordinator):
                 self._payload_error = False
                 _LOGGER.info(
                     "Payload error resolved, connection to geniushub re-established"
+                )
+            if self._timeout_error:
+                self._timeout_error = False
+                _LOGGER.info(
+                    "Timeout error resolved, connection to geniushub re-established"
                 )
         except (
             aiohttp.ClientResponseError,
@@ -78,6 +86,22 @@ class GeniusCoordinator(DataUpdateCoordinator):
                     "api_err": str(api_err),
                 },
             ) from api_err
+        except (TimeoutError, requests.exceptions.Timeout) as timeout_err:
+            err_traceback = traceback.format_exc()
+            if not self._timeout_error:
+                # _LOGGER.info("Timeout communicating with GH API: %s", err_traceback)
+                _LOGGER.info(
+                    "Timeout communicating with GH API: %s", self._timeout_error
+                )
+                self._timeout_error = True
+                return
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="timeout_communicating_with_api",
+                translation_placeholders={
+                    "err_traceback": err_traceback,
+                },
+            ) from timeout_err
 
         self.make_debug_log_entries()
 
