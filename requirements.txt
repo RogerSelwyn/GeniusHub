@@ -1,1 +1,1 @@
-geniushubclientalt>=0.8.2
+geniushub-client>=0.7.3
