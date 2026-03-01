@@ -8,7 +8,7 @@ from typing import Any, Self
 
 import aiohttp
 from geniushubclient import GeniusService
-from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -19,6 +19,10 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Geniushub."""
 
     VERSION = 1
+
+    def __init__(self):
+        """Initialise the configuration flow."""
+        self._reconfigure_entry: ConfigEntry | None = None
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -34,6 +38,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
         user_input: dict[str, Any] | None = None,  # pylint: disable=unused-argument
     ) -> ConfigFlowResult:
         """Handle the reconfigure step."""
+        self._reconfigure_entry = self._get_reconfigure_entry()
         return await self.async_step_user()
 
     async def async_step_local_api(
@@ -72,8 +77,15 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                     title=user_input[CONF_HOST], data=user_input
                 )
 
+        if self._reconfigure_entry:
+            data_schema = self.add_suggested_values_to_schema(
+                LOCAL_API_SCHEMA, self._reconfigure_entry.data
+            )
+        else:
+            data_schema = LOCAL_API_SCHEMA
+
         return self.async_show_form(
-            step_id="local_api", errors=errors, data_schema=LOCAL_API_SCHEMA
+            step_id="local_api", errors=errors, data_schema=data_schema
         )
 
     async def async_step_cloud_api(
@@ -100,8 +112,15 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
             else:
                 return self.async_create_entry(title=ATTR_MANUFACTURER, data=user_input)
 
+        if self._reconfigure_entry:
+            data_schema = self.add_suggested_values_to_schema(
+                CLOUD_API_SCHEMA, self._reconfigure_entry.data
+            )
+        else:
+            data_schema = CLOUD_API_SCHEMA
+
         return self.async_show_form(
-            step_id="cloud_api", errors=errors, data_schema=CLOUD_API_SCHEMA
+            step_id="cloud_api", errors=errors, data_schema=data_schema
         )
 
     def is_matching(self, other_flow: Self) -> bool:
