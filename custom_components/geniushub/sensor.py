@@ -6,7 +6,7 @@ from datetime import timedelta
 from typing import Any
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
-from homeassistant.const import PERCENTAGE
+from homeassistant.const import UnitOfRatio
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -40,7 +40,7 @@ class GeniusBattery(GeniusDevice, SensorEntity):
     """Representation of a Genius Hub sensor."""
 
     _attr_device_class = SensorDeviceClass.BATTERY
-    _attr_native_unit_of_measurement = PERCENTAGE
+    _attr_native_unit_of_measurement = UnitOfRatio.PERCENTAGE
 
     def __init__(self, coordinator, device, state_attr) -> None:
         """Initialize the sensor."""
