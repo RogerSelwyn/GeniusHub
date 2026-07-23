@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import GH_HEATERS, GH_STATE_TO_HA, HA_OPMODE_TO_GH
+from .const import GH_ATTR_TYPE, GH_HEATERS, GH_STATE_TO_HA, HA_OPMODE_TO_GH
 from .entity import GeniusHeatingZone
 
 
@@ -26,7 +26,7 @@ async def async_setup_entry(
     async_add_entities(
         GeniusWaterHeater(coordinator, z)
         for z in coordinator.client.zone_objs
-        if z.data.get("type") in GH_HEATERS
+        if z.data.get(GH_ATTR_TYPE) in GH_HEATERS
     )
 
 

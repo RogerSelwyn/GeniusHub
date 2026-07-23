@@ -8,6 +8,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
+    GH_ATTR_TYPE,
     GH_BINARY_SENSOR_STATE_ATTR,
     GH_DUAL_CHANNEL_RECEIVER,
     GH_ELECTRIC_SWITCH_TYPE,
@@ -29,10 +30,10 @@ async def async_setup_entry(
         GeniusBinarySensor(coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
         for d in coordinator.client.device_objs
         if (
-            GH_RECEIVER_TYPE in d.data["type"]
-            and d.data["type"] != GH_DUAL_CHANNEL_RECEIVER
+            GH_RECEIVER_TYPE in d.data[GH_ATTR_TYPE]
+            and d.data[GH_ATTR_TYPE] != GH_DUAL_CHANNEL_RECEIVER
         )
-        or GH_ELECTRIC_SWITCH_TYPE in d.data["type"]
+        or GH_ELECTRIC_SWITCH_TYPE in d.data[GH_ATTR_TYPE]
     )
 
 

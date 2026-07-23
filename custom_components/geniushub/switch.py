@@ -9,10 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import (
-    ATTR_DURATION,
-    GH_ON_OFF_ZONE,
-)
+from .const import ATTR_DURATION, GH_ATTR_TYPE, GH_ON_OFF_ZONE
 from .entity import GeniusZone
 
 
@@ -28,7 +25,7 @@ async def async_setup_entry(
     async_add_entities(
         GeniusSwitch(coordinator, z)
         for z in coordinator.client.zone_objs
-        if z.data.get("type") == GH_ON_OFF_ZONE
+        if z.data.get(GH_ATTR_TYPE) == GH_ON_OFF_ZONE
     )
 
 
