@@ -23,7 +23,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
 
     async_add_entities(
-        GeniusSwitch(coordinator, z)
+        GeniusSwitch(entry, coordinator, z)
         for z in coordinator.client.zone_objs
         if z.data.get(GH_ATTR_TYPE) == GH_ON_OFF_ZONE
     )

@@ -24,7 +24,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
 
     async_add_entities(
-        GeniusWaterHeater(coordinator, z)
+        GeniusWaterHeater(entry, coordinator, z)
         for z in coordinator.client.zone_objs
         if z.data.get(GH_ATTR_TYPE) in GH_HEATERS
     )
@@ -38,9 +38,9 @@ class GeniusWaterHeater(GeniusHeatingZone, WaterHeaterEntity):
         | WaterHeaterEntityFeature.OPERATION_MODE
     )
 
-    def __init__(self, coordinator, zone) -> None:
+    def __init__(self, entry: GeniusHubConfigEntry, coordinator, zone) -> None:
         """Initialize the water_heater device."""
-        super().__init__(coordinator, zone)
+        super().__init__(entry, coordinator, zone)
 
         self._max_temp = 80.0
         self._min_temp = 30.0

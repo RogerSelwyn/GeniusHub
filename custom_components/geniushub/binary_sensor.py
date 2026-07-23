@@ -27,7 +27,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
 
     async_add_entities(
-        GeniusBinarySensor(coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
+        GeniusBinarySensor(entry, coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
         for d in coordinator.client.device_objs
         if (
             GH_RECEIVER_TYPE in d.data[GH_ATTR_TYPE]
@@ -40,9 +40,11 @@ async def async_setup_entry(
 class GeniusBinarySensor(GeniusDevice, BinarySensorEntity):
     """Representation of a Genius Hub binary_sensor."""
 
-    def __init__(self, coordinator, device, state_attr) -> None:
+    def __init__(
+        self, entry: GeniusHubConfigEntry, coordinator, device, state_attr
+    ) -> None:
         """Initialize the binary sensor."""
-        super().__init__(coordinator, device)
+        super().__init__(entry, coordinator, device)
 
         self._state_attr = state_attr
 

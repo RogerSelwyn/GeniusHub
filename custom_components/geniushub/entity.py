@@ -9,7 +9,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
 
-from . import DOMAIN
+from . import DOMAIN, GeniusHubConfigEntry
 from .const import (
     ATTR_DURATION,
     ATTR_MANUFACTURER,
@@ -26,9 +26,10 @@ class GeniusEntity(CoordinatorEntity):
 
     _attr_should_poll = False
 
-    def __init__(self, coordinator) -> None:
+    def __init__(self, entry: GeniusHubConfigEntry, coordinator) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
+        self._entry = entry
         self._unique_id: str | None = None
 
     def _handle_coordinator_update(self) -> None:
@@ -44,9 +45,9 @@ class GeniusEntity(CoordinatorEntity):
 class GeniusDevice(GeniusEntity):
     """Base for all Genius Hub devices."""
 
-    def __init__(self, coordinator, device) -> None:
+    def __init__(self, entry: GeniusHubConfigEntry, coordinator, device) -> None:
         """Initialize the Device."""
-        super().__init__(coordinator)
+        super().__init__(entry, coordinator)
 
         self._device = device
         self._unique_id = f"{coordinator.hub_uid}_device_{device.id}"
@@ -75,7 +76,9 @@ class GeniusDevice(GeniusEntity):
     def device_info(self) -> DeviceInfo:
         """Entity device info"""
         via_device = _get_via_device_id(
-            self.hass, {(DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id))}
+            self.hass,
+            self._entry,
+            (DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id)),
         )
 
         # name = f"{self._device.type.title()} {self._device.id}"
@@ -110,9 +113,9 @@ class GeniusDevice(GeniusEntity):
 class GeniusZone(GeniusEntity):
     """Base for all Genius Hub zones."""
 
-    def __init__(self, coordinator, zone) -> None:
+    def __init__(self, entry: GeniusHubConfigEntry, coordinator, zone) -> None:
         """Initialize the Zone."""
-        super().__init__(coordinator)
+        super().__init__(entry, coordinator)
 
         self._zone = zone
         self._unique_id = f"{coordinator.hub_uid}_zone_{zone.id}"
@@ -133,7 +136,9 @@ class GeniusZone(GeniusEntity):
     def device_info(self) -> DeviceInfo:
         """Entity device info"""
 
-        via_device = _get_via_device_id(self.hass, {(DOMAIN, self._hub.hub_uid)})
+        via_device = _get_via_device_id(
+            self.hass, self._entry, (DOMAIN, self._hub.hub_uid)
+        )
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
@@ -183,6 +188,6 @@ class GeniusHeatingZone(GeniusZone):
         )
 
 
-def _get_via_device_id(hass, identifiers) -> DeviceInfo:
+def _get_via_device_id(hass, entry: GeniusHubConfigEntry, identifiers) -> DeviceInfo:
     dev_reg = dr.async_get(hass)
-    return dev_reg.async_get_device(identifiers)
+    return dev_reg.async_get_device_by_identifier(identifiers, entry.entry_id)
