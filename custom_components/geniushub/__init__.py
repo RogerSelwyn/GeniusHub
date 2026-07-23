@@ -98,7 +98,7 @@ def _create_hub_devices(
 ):
     device_registry = dr.async_get(hass)
     hub_identifiers = (DOMAIN, hub_uid)
-    device_registry.async_get_or_create(
+    hub = device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={hub_identifiers},
         name=hub_uid,
@@ -109,7 +109,7 @@ def _create_hub_devices(
         device_registry.async_get_or_create(
             config_entry_id=entry.entry_id,
             identifiers={(DOMAIN, IDENTIFIER_ZONE.format(zone0.id))},
-            via_device=hub_identifiers,
+            via_device_id=hub.id,
             name=zone0.name,
             manufacturer=ATTR_MANUFACTURER,
             model=zone0.name,

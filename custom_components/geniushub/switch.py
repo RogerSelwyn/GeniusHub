@@ -6,17 +6,12 @@ from typing import Any
 
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
     ATTR_DURATION,
-    ATTR_MANUFACTURER,
-    DOMAIN,
     GH_ON_OFF_ZONE,
-    IDENTIFIER_ZONE,
-    SERIAL_NO,
 )
 from .entity import GeniusZone
 
@@ -54,19 +49,6 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
         return (
             self._zone.data["mode"] in ["override", "timer"]
             and self._zone.data["setpoint"]
-        )
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Entity device info"""
-
-        return DeviceInfo(
-            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
-            name=self._zone.name,
-            via_device=(DOMAIN, self._hub.hub_uid),
-            manufacturer=ATTR_MANUFACTURER,
-            model=f"{self._zone.data['type'].title()} Zone",
-            serial_number=SERIAL_NO.format("Zone", self._zone.id),
         )
 
     async def async_turn_off(self, **kwargs: Any) -> None:

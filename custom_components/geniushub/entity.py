@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Any
 
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
@@ -73,7 +74,9 @@ class GeniusDevice(GeniusEntity):
     @property
     def device_info(self) -> DeviceInfo:
         """Entity device info"""
-        via_device = IDENTIFIER_ZONE.format(self._device.assigned_zone.id)
+        via_device = _get_via_device_id(
+            self.hass, {(DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id))}
+        )
 
         # name = f"{self._device.type.title()} {self._device.id}"
         # model = self._device.type
@@ -86,7 +89,7 @@ class GeniusDevice(GeniusEntity):
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
-            via_device=(DOMAIN, via_device),
+            via_device_id=via_device.id,
             name=name,
             manufacturer=ATTR_MANUFACTURER,
             model=model,
@@ -126,6 +129,21 @@ class GeniusZone(GeniusEntity):
         status = {k: v for k, v in self._zone.data.items() if k in GH_ZONE_ATTRS}
         return {"status": status}
 
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Entity device info"""
+
+        via_device = _get_via_device_id(self.hass, {(DOMAIN, self._hub.hub_uid)})
+
+        return DeviceInfo(
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
+            name=self._zone.name,
+            via_device_id=via_device.id,
+            manufacturer=ATTR_MANUFACTURER,
+            model=f"{self._zone.data['type'].title()} Zone",
+            serial_number=SERIAL_NO.format("Zone", self._zone.id),
+        )
+
 
 class GeniusHeatingZone(GeniusZone):
     """Base for Genius Heating Zones."""
@@ -158,21 +176,13 @@ class GeniusHeatingZone(GeniusZone):
         """Return the unit of measurement."""
         return UnitOfTemperature.CELSIUS
 
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Entity device info"""
-
-        return DeviceInfo(
-            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._zone.id))},
-            name=self._zone.name,
-            via_device=(DOMAIN, self._hub.hub_uid),
-            manufacturer=ATTR_MANUFACTURER,
-            model=f"{self._zone.data['type'].title()} Zone",
-            serial_number=SERIAL_NO.format("Zone", self._zone.id),
-        )
-
     async def async_set_temperature(self, **kwargs) -> None:
         """Set a new target temperature for this zone."""
         await self._zone.set_override(
             kwargs[ATTR_TEMPERATURE], kwargs.get(ATTR_DURATION, 3600)
         )
+
+
+def _get_via_device_id(hass, identifiers) -> DeviceInfo:
+    dev_reg = dr.async_get(hass)
+    return dev_reg.async_get_device(identifiers)
