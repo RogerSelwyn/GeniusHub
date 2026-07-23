@@ -130,7 +130,7 @@ LOCAL_API_SCHEMA = vol.Schema(
 ### Config_flow Constants End ###
 
 ### Sensor Constants Start ###
-GH_STATE_ATTR = "batteryLevel"
+GH_BATTERY_LEVEL_ATTR = "batteryLevel"
 
 GH_LEVEL_MAPPING = {
     "error": "Errors",
@@ -159,3 +159,8 @@ GH_STATE_TO_HA = {
 
 GH_HEATERS = ["hot water temperature"]
 ### Water Heater Constants End ###
+
+GH_ATTR_NAME = "name"
+GH_ATTR_SETPOINT = "setpoint"
+GH_ATTR_TEMPERATURE = "temperature"
+GH_ATTR_TYPE = "type"
