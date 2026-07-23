@@ -1,7 +1,7 @@
 {
   "name": "Genius Hub",
   "zip_release": true,
-  "homeassistant": "2025.8.0",
+  "homeassistant": "2026.8.0",
   "content_in_root": false,
   "filename": "geniushub.zip",
   "render_readme": true
