@@ -81,14 +81,8 @@ class GeniusDevice(GeniusEntity):
             (DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id)),
         )
 
-        # name = f"{self._device.type.title()} {self._device.id}"
-        # model = self._device.type
-        if self._device.type:
-            name = f"{self._device.type.title()} {self._device.id}"
-            model = self._device.type
-        else:
-            name = f"Electric Switch {self._device.id}"
-            model = "Electric Switch"
+        name = f"{self._device.type.title()} {self._device.id}"
+        model = f"{self._device.type} ({self._device.device_model})"
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
