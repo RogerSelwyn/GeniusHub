@@ -102,6 +102,6 @@ class GeniusCoordinator(DataUpdateCoordinator):
         """Make any useful debug log entries."""
         _LOGGER.debug(
             "Raw JSON: \n\nclient._zones = %s \n\nclient._devices = %s",
-            self.client._zones,  # noqa: SLF001 # pylint: disable=protected-access
-            self.client._devices,  # noqa: SLF001 # pylint: disable=protected-access
+            self.client._zones,  # pylint: disable=protected-access
+            self.client._devices,  # pylint: disable=protected-access
         )

@@ -111,7 +111,7 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
 
     async def async_set_zone_mode(self, mode):
         """Set a new zone mode."""
-        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001 # pylint: disable=protected-access
+        if mode == "footprint" and not self._zone._has_pir:  # pylint: disable=protected-access
             raise ServiceValidationError(
                 f"'{self.entity_id}' cannot support footprint mode (it has no PIR)"
             )
