@@ -1,5 +1,33 @@
 # Changelog
 
+## v2.2.0 (2026/08/06)
+### ✨ Enhancements
+- [Add temperature sensor for zones with no setpoint](https://github.com/RogerSelwyn/GeniusHub/commit/7ea6a838e5c159b6676fcfa6b6fdad02121d6eed) - @RogerSelwyn
+- [Add model number to device deviceinfo](https://github.com/RogerSelwyn/GeniusHub/commit/9c4fa050e68a72cc3a4ff74a2bbe9ab2f03b1a21) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Add local brand logos](https://github.com/RogerSelwyn/GeniusHub/commit/533ac25b50ddfbb8a41272b7674512eaf078aaf1) - @RogerSelwyn
+- [Add display previous config on reconfigure](https://github.com/RogerSelwyn/GeniusHub/commit/a74d9e64f67ddacb2ba3b8f1f5c51734f896c3a1) - @RogerSelwyn
+- [Remove deprecated constant](https://github.com/RogerSelwyn/GeniusHub/commit/5c2f5d425ab8f31b6ce897d3b3bda0f10eea947c) - @RogerSelwyn
+- [Migrate from via_device to via_device_id](https://github.com/RogerSelwyn/GeniusHub/commit/ceee0a42af869a71aca9ad86cfaf68f5fe4e41ff) - @RogerSelwyn
+- [Tidy up constants](https://github.com/RogerSelwyn/GeniusHub/commit/a4becd5cdbe47e3141230723bda172025a6a052d) - @RogerSelwyn
+- [Remove deprecated async_get_device](https://github.com/RogerSelwyn/GeniusHub/commit/c2547dbb41d8ef9f89eb0aac578c1a29e85fda94) - @RogerSelwyn
+- [Update workflows](https://github.com/RogerSelwyn/GeniusHub/commit/873dc0c180541900f820390896fbd3b7a5dd318a) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.15.0 to 0.15.2](https://github.com/RogerSelwyn/GeniusHub/commit/cca443617157cec8764fef873547eaafb37029c7) - @dependabot[bot]
+- [Update geniushub-client requirement from >=0.7.3 to >=0.7.4](https://github.com/RogerSelwyn/GeniusHub/commit/c777443d7ff88c3aedf73f1138177baa3cc28b76) - @dependabot[bot]
+- [Update pygithub requirement from >=1.51 to >=2.9.1](https://github.com/RogerSelwyn/GeniusHub/commit/1f45cb46fa99762a14745753e1a1029a216fdbb1) - @dependabot[bot]
+- [Add versioning strategy to Dependabot config](https://github.com/RogerSelwyn/GeniusHub/commit/6df14e6140bf00894ba33c92bf6ff5af84bb5aac) - @RogerSelwyn
+- [Bump minimum HA to 2026.8.0](https://github.com/RogerSelwyn/GeniusHub/commit/eac916b892b6243060a161af50bc7828c2403eaa) - @RogerSelwyn
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/GeniusHub/commit/a0fc4f03179f484aaa16c6e6571df495c0fdbb92) - @actions-user
+
+### 🔖 Release
+- [Release v2.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/c48e42a6f4ad8e6717d2531c3990273a66fff71c) - @RogerSelwyn
+
+
+
+
 ## v2.1.4 (2026/02/18)
 ### 🐛 Fixes
 - [Handle intermittent timeout errors from hub](https://github.com/RogerSelwyn/GeniusHub/commit/f83bb87eead6fa5df72fcf1a55dc1c16ddadb217) - @RogerSelwyn
