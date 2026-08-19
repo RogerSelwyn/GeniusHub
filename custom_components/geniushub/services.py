@@ -1,7 +1,5 @@
 """Setup services for geniushub."""
 
-from __future__ import annotations
-
 from homeassistant.components.climate import DOMAIN as CLIMATE_DOMAIN
 from homeassistant.components.switch import DOMAIN as SWITCH_DOMAIN
 from homeassistant.core import HomeAssistant, callback

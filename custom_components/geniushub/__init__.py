@@ -1,10 +1,9 @@
 """Support for a Genius Hub system."""
 
-from __future__ import annotations
-
 import logging
 
 import aiohttp
+
 from geniushubclient import GeniusHub
 from geniushubclient.zone import GeniusZone
 from homeassistant.config_entries import ConfigEntry
@@ -16,8 +15,7 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
-from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType
 

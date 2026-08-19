@@ -1,10 +1,11 @@
-"""Coordinator for Genius Hub System"""
+"""Coordinator for Genius Hub System."""
 
 import logging
 import traceback
 
 import aiohttp
 import requests
+
 from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -69,7 +70,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
                     "Connection to geniushub failed with payload error, message is: %s",
                     api_err,
                 )
-                return
+                return None
             raise UpdateFailed(
                 translation_domain=DOMAIN,
                 translation_key="error_communicating_with_api",
@@ -85,7 +86,7 @@ class GeniusCoordinator(DataUpdateCoordinator):
                     "Timeout communicating with GH API: %s", self._timeout_error
                 )
                 self._timeout_error = True
-                return
+                return None
             raise UpdateFailed(
                 translation_domain=DOMAIN,
                 translation_key="timeout_communicating_with_api",
@@ -102,6 +103,6 @@ class GeniusCoordinator(DataUpdateCoordinator):
         """Make any useful debug log entries."""
         _LOGGER.debug(
             "Raw JSON: \n\nclient._zones = %s \n\nclient._devices = %s",
-            self.client._zones,  # pylint: disable=protected-access
-            self.client._devices,  # pylint: disable=protected-access
+            self.client._zones,  # noqa: SLF001
+            self.client._devices,  # noqa: SLF001
         )

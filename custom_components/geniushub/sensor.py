@@ -1,7 +1,5 @@
 """Support for Genius Hub sensor devices."""
 
-from __future__ import annotations
-
 from datetime import timedelta
 from typing import Any
 
@@ -134,7 +132,7 @@ class GeniusIssue(GeniusEntity, SensorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Entity device info"""
+        """Entity device info."""
         return DeviceInfo(identifiers={(DOMAIN, self._hub.uid)})
 
 
@@ -171,5 +169,5 @@ class GeniusTemp(GeniusEntity, SensorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Entity device info"""
+        """Entity device info."""
         return DeviceInfo(identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._id))})

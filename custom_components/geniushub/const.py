@@ -3,11 +3,8 @@
 from datetime import timedelta
 
 import voluptuous as vol
-from homeassistant.components.climate import (
-    PRESET_ACTIVITY,
-    PRESET_BOOST,
-    HVACMode,
-)
+
+from homeassistant.components.climate import PRESET_ACTIVITY, PRESET_BOOST, HVACMode
 from homeassistant.const import (
     ATTR_TEMPERATURE,
     CONF_HOST,

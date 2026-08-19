@@ -1,12 +1,11 @@
 """Config flow for Geniushub integration."""
 
-from __future__ import annotations
-
-import socket
 from http import HTTPStatus
+import socket
 from typing import Any, Self
 
 import aiohttp
+
 from geniushubclient import GeniusService
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
@@ -20,7 +19,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialise the configuration flow."""
         self._reconfigure_entry: ConfigEntry | None = None
 
@@ -68,7 +67,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                     errors["base"] = "invalid_auth"
                 else:
                     errors["base"] = "invalid_host"
-            except (TimeoutError, aiohttp.ClientConnectionError):
+            except TimeoutError, aiohttp.ClientConnectionError:
                 errors["base"] = "cannot_connect"
             else:
                 await self.async_set_unique_id(response["data"]["UID"])
@@ -107,7 +106,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                     errors["base"] = "invalid_host"
             except socket.gaierror:
                 errors["base"] = "invalid_host"
-            except (TimeoutError, aiohttp.ClientConnectionError):
+            except TimeoutError, aiohttp.ClientConnectionError:
                 errors["base"] = "cannot_connect"
             else:
                 return self.async_create_entry(title=ATTR_MANUFACTURER, data=user_input)

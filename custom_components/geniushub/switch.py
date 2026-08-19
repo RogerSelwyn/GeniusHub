@@ -1,7 +1,5 @@
 """Support for Genius Hub switch/outlet devices."""
 
-from __future__ import annotations
-
 from typing import Any
 
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity

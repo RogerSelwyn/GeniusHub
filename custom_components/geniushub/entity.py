@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Any
 
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -74,7 +75,7 @@ class GeniusDevice(GeniusEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Entity device info"""
+        """Entity device info."""
         via_device = _get_via_device_id(
             self.hass,
             self._entry,
@@ -128,7 +129,7 @@ class GeniusZone(GeniusEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Entity device info"""
+        """Entity device info."""
 
         via_device = _get_via_device_id(
             self.hass, self._entry, (DOMAIN, self._hub.hub_uid)
@@ -182,6 +183,8 @@ class GeniusHeatingZone(GeniusZone):
         )
 
 
-def _get_via_device_id(hass, entry: GeniusHubConfigEntry, identifiers) -> DeviceInfo:
+def _get_via_device_id(
+    hass: HomeAssistant, entry: GeniusHubConfigEntry, identifiers
+) -> DeviceInfo:
     dev_reg = dr.async_get(hass)
     return dev_reg.async_get_device_by_identifier(identifiers, entry.entry_id)
