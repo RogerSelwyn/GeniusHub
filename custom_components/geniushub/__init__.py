@@ -30,7 +30,7 @@ type GeniusHubConfigEntry = ConfigEntry[GeniusCoordinator]
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:  # pylint: disable=unused-argument
-    """Setup for Geniushub."""
+    """Set up for Geniushub."""
     async_setup_services(hass)
     return True
 
