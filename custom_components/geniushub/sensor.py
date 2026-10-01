@@ -4,7 +4,6 @@ from datetime import timedelta
 from typing import Any
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfRatio, UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -35,17 +34,15 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
 
     entities: list[GeniusBattery | GeniusIssue] = [
-        GeniusBattery(entry, coordinator, d, GH_BATTERY_LEVEL_ATTR)
+        GeniusBattery(coordinator, d, GH_BATTERY_LEVEL_ATTR)
         for d in coordinator.client.device_objs
         if GH_BATTERY_LEVEL_ATTR in d.data["state"]
     ]
-    entities.extend(
-        [GeniusIssue(entry, coordinator, i) for i in list(GH_LEVEL_MAPPING)]
-    )
+    entities.extend([GeniusIssue(coordinator, i) for i in list(GH_LEVEL_MAPPING)])
 
     entities.extend(
         [
-            GeniusTemp(entry, coordinator, z)
+            GeniusTemp(coordinator, z)
             for z in coordinator.client.zone_objs
             if z.data.get(GH_ATTR_TEMPERATURE) and not z.data.get(GH_ATTR_SETPOINT)
         ]
@@ -60,9 +57,9 @@ class GeniusBattery(GeniusDevice, SensorEntity):
     _attr_device_class = SensorDeviceClass.BATTERY
     _attr_native_unit_of_measurement = UnitOfRatio.PERCENTAGE
 
-    def __init__(self, entry: ConfigEntry, coordinator, device, state_attr) -> None:
+    def __init__(self, coordinator, device, state_attr) -> None:
         """Initialize the sensor."""
-        super().__init__(entry, coordinator, device)
+        super().__init__(coordinator, device)
 
         self._state_attr = state_attr
 
@@ -103,9 +100,9 @@ class GeniusBattery(GeniusDevice, SensorEntity):
 class GeniusIssue(GeniusEntity, SensorEntity):
     """Representation of a Genius Hub sensor."""
 
-    def __init__(self, entry: ConfigEntry, coordinator, level) -> None:
+    def __init__(self, coordinator, level) -> None:
         """Initialize the sensor."""
-        super().__init__(entry, coordinator)
+        super().__init__(coordinator)
 
         self._hub = coordinator.client
         self._unique_id = f"{coordinator.hub_uid}_{GH_LEVEL_MAPPING[level]}"
@@ -142,9 +139,9 @@ class GeniusTemp(GeniusEntity, SensorEntity):
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
 
-    def __init__(self, entry: ConfigEntry, coordinator, zone) -> None:
+    def __init__(self, coordinator, zone) -> None:
         """Initialize the sensor."""
-        super().__init__(entry, coordinator)
+        super().__init__(coordinator)
 
         self._hub = coordinator.client
         self._unique_id = (

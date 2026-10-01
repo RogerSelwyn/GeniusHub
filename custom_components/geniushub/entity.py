@@ -27,10 +27,9 @@ class GeniusEntity(CoordinatorEntity):
 
     _attr_should_poll = False
 
-    def __init__(self, entry: GeniusHubConfigEntry, coordinator) -> None:
+    def __init__(self, coordinator) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
-        self._entry = entry
         self._unique_id: str | None = None
 
     def _handle_coordinator_update(self) -> None:
@@ -46,9 +45,9 @@ class GeniusEntity(CoordinatorEntity):
 class GeniusDevice(GeniusEntity):
     """Base for all Genius Hub devices."""
 
-    def __init__(self, entry: GeniusHubConfigEntry, coordinator, device) -> None:
+    def __init__(self, coordinator, device) -> None:
         """Initialize the Device."""
-        super().__init__(entry, coordinator)
+        super().__init__(coordinator)
 
         self._device = device
         self._unique_id = f"{coordinator.hub_uid}_device_{device.id}"
@@ -78,7 +77,7 @@ class GeniusDevice(GeniusEntity):
         """Entity device info."""
         via_device = _get_via_device_id(
             self.hass,
-            self._entry,
+            self.coordinator.config_entry,
             (DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id)),
         )
 
@@ -108,9 +107,9 @@ class GeniusDevice(GeniusEntity):
 class GeniusZone(GeniusEntity):
     """Base for all Genius Hub zones."""
 
-    def __init__(self, entry: GeniusHubConfigEntry, coordinator, zone) -> None:
+    def __init__(self, coordinator, zone) -> None:
         """Initialize the Zone."""
-        super().__init__(entry, coordinator)
+        super().__init__(coordinator)
 
         self._zone = zone
         self._unique_id = f"{coordinator.hub_uid}_zone_{zone.id}"
@@ -132,7 +131,7 @@ class GeniusZone(GeniusEntity):
         """Entity device info."""
 
         via_device = _get_via_device_id(
-            self.hass, self._entry, (DOMAIN, self._hub.hub_uid)
+            self.hass, self.coordinator.config_entry, (DOMAIN, self._hub.hub_uid)
         )
 
         return DeviceInfo(
