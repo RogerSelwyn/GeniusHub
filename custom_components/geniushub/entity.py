@@ -149,14 +149,15 @@ class GeniusHeatingZone(GeniusZone):
 
     _max_temp: float
     _min_temp: float
+    _attr_native_temperature_unit: str = UnitOfTemperature.CELSIUS
 
     @property
-    def current_temperature(self) -> float | None:
+    def native_current_temperature(self) -> float | None:
         """Return the current temperature."""
         return self._zone.data.get("temperature")
 
     @property
-    def target_temperature(self) -> float:
+    def native_target_temperature(self) -> float:
         """Return the temperature we try to reach."""
         return self._zone.data["setpoint"]
 

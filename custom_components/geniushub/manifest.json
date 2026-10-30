@@ -1,6 +1,11 @@
 {
   "domain": "geniushub",
   "name": "Genius Hub",
+  "categories": [
+    "climate",
+    "climate.thermostats_heating",
+    "climate.water_heaters"
+  ],
   "codeowners": ["@rogerselwyn"],
   "config_flow": true,
   "documentation": "https://github.com/RogerSelwyn/GeniusHub",
