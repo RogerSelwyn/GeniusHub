@@ -78,14 +78,8 @@
     }
   },
   "exceptions": {
-    "homelink_oauth_unavailable": {
-      "message": "OAuth2 implementation temporarily unavailable, will retry"
-    },
-    "homelink_mqtt_invalid": {
-      "message": "HomeLink MQTT credentials/topic are invalid. Please reconfigure"
-    },
-    "homelink_mqtt_unavailable": {
-      "message": "HomeLink MQTT server not available"
+    "setup_failed": {
+      "message": "Setup failed, check your configuration, {err}"
     },
     "error_communicating_with_api": {
       "message": "Connection to geniushub failed (unable to update), message is: {api_err}"

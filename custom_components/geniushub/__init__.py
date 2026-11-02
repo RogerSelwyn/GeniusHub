@@ -15,6 +15,7 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryError
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType
@@ -35,7 +36,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:  # pylin
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> bool:
+async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> None:
     """Create a Genius Hub system."""
     if CONF_TOKEN in entry.data and CONF_MAC in entry.data:
         entity_registry = er.async_get(hass)
@@ -72,19 +73,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
         await coordinator.async_config_entry_first_refresh()
     except aiohttp.ClientResponseError as err:
         _LOGGER.error("Setup failed, check your configuration, %s", err)
-        return False
+        raise ConfigEntryError(
+            translation_domain=DOMAIN,
+            translation_key="setup_failed",
+            translation_placeholders={"err": err},
+        ) from err
     coordinator.make_debug_log_entries()
 
     _create_hub_devices(hass, entry, unique_id, api, coordinator.client.zone_by_id[0])
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
-    return True
-
 
 async def async_unload_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> bool:
     """Unload a config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
 def _create_hub_devices(
