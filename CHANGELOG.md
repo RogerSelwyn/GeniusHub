@@ -1,5 +1,29 @@
 # Changelog
 
+## v2.3.0 (2026/11/05)
+### 🧰 Maintenance
+- [Implement ruff recommendations](https://github.com/RogerSelwyn/GeniusHub/commit/60ff116878a385c07380290b31d778cc5e1d99bc) - @RogerSelwyn
+- [Update to HA Ruff standards](https://github.com/RogerSelwyn/GeniusHub/commit/c3302f96f02f8c1dd7a7406f4a68979a88f6cbc8) - @RogerSelwyn
+- [Minor ruff tweak](https://github.com/RogerSelwyn/GeniusHub/commit/92f4108ebbb4882c5e80e57f9f886037e4876b4a) - @RogerSelwyn
+- [Remove unnecessary entry passing](https://github.com/RogerSelwyn/GeniusHub/commit/4df5495804567dee7f3c3a115f0247d15df80a6f) - @RogerSelwyn
+- [Remove lint error](https://github.com/RogerSelwyn/GeniusHub/commit/8e212d72c7fb78f6b6d8818692420b3ac67a6e58) - @RogerSelwyn
+- [Lint error](https://github.com/RogerSelwyn/GeniusHub/commit/c90b4e24a14ce61356263d9afb3ac342628bda2b) - @RogerSelwyn
+- [Add temperature unit](https://github.com/RogerSelwyn/GeniusHub/commit/26f2abe7b601d2263999cc1c45c1c6f6e8c552f6) - @RogerSelwyn
+- [Config entry functions return None](https://github.com/RogerSelwyn/GeniusHub/commit/a7e2a215092c4cdcae6747696d8c1cf828a3acab) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [Bump ruff from 0.15.2 to 0.16.3](https://github.com/RogerSelwyn/GeniusHub/commit/6763de31b88abef8c23f6b1177fa1d80bb0ef06e) - @dependabot[bot]
+- [Bump ruff from 0.16.3 to 0.16.9](https://github.com/RogerSelwyn/GeniusHub/commit/c8f902b2fae1f030a4139180c8975200a40c4243) - @dependabot[bot]
+- [Update pygithub requirement from >=2.9.1 to >=2.10.0](https://github.com/RogerSelwyn/GeniusHub/commit/e35eb33b79277d01f43ce1941cddff9aca411358) - @dependabot[bot]
+- [Bump ruff from 0.16.9 to 0.17.3](https://github.com/RogerSelwyn/GeniusHub/commit/9f9a0fbd24cfd2d8b0c2048e5b8705adbab7f2b2) - @dependabot[bot]
+- [Bump HA Core to 2026.11.0](https://github.com/RogerSelwyn/GeniusHub/commit/8de81a419709b13c9093ffeb28068fadf1650b8b) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v2.3.0](https://github.com/RogerSelwyn/GeniusHub/commit/dc4a6a9007a8b110d4300a650dbcd8c537a90601) - @RogerSelwyn
+
+
+
+
 ## v2.2.0 (2026/08/06)
 ### ✨ Enhancements
 - [Add temperature sensor for zones with no setpoint](https://github.com/RogerSelwyn/GeniusHub/commit/7ea6a838e5c159b6676fcfa6b6fdad02121d6eed) - @RogerSelwyn
