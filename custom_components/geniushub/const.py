@@ -2,7 +2,7 @@
 
 from datetime import timedelta
 
-import voluptuous as vol
+import probatio
 
 from homeassistant.components.climate import PRESET_ACTIVITY, PRESET_BOOST, HVACMode
 from homeassistant.const import (
@@ -46,16 +46,16 @@ SVC_SET_ZONE_MODE = "set_zone_mode"
 SVC_SET_ZONE_OVERRIDE = "set_zone_override"
 
 SET_ZONE_MODE_SCHEMA = {
-    vol.Required(ATTR_ZONE_MODE): vol.In(["off", "timer", "footprint"]),
+    probatio.Required(ATTR_ZONE_MODE): probatio.In(["off", "timer", "footprint"]),
 }
 
 SET_ZONE_OVERRIDE_SCHEMA = {
-    vol.Required(ATTR_TEMPERATURE): vol.All(
-        vol.Coerce(float), vol.Range(min=4, max=28)
+    probatio.Required(ATTR_TEMPERATURE): probatio.All(
+        probatio.Coerce(float), probatio.Range(min=4, max=28)
     ),
-    vol.Optional(ATTR_DURATION): vol.All(
+    probatio.Optional(ATTR_DURATION): probatio.All(
         cv.time_period,
-        vol.Range(min=timedelta(minutes=5), max=timedelta(days=1)),
+        probatio.Range(min=timedelta(minutes=5), max=timedelta(days=1)),
     ),
 }
 ### __init__ Constants End ###
@@ -79,9 +79,9 @@ GH_ON_OFF_ZONE = "on / off"
 SVC_SET_SWITCH_OVERRIDE = "set_switch_override"
 
 SET_SWITCH_OVERRIDE_SCHEMA: VolDictType = {
-    vol.Optional(ATTR_DURATION): vol.All(
+    probatio.Optional(ATTR_DURATION): probatio.All(
         cv.time_period,
-        vol.Range(min=timedelta(minutes=5), max=timedelta(days=1)),
+        probatio.Range(min=timedelta(minutes=5), max=timedelta(days=1)),
     ),
 }
 ### Switch Constants End ###
@@ -110,18 +110,18 @@ GH_RECEIVER_TYPE = "Receiver"
 
 
 ### Config_flow Constants Start ###
-CLOUD_API_SCHEMA = vol.Schema(
+CLOUD_API_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_TOKEN): str,
+        probatio.Required(CONF_TOKEN): str,
     }
 )
 
 
-LOCAL_API_SCHEMA = vol.Schema(
+LOCAL_API_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_HOST): str,
-        vol.Required(CONF_USERNAME): str,
-        vol.Required(CONF_PASSWORD): str,
+        probatio.Required(CONF_HOST): str,
+        probatio.Required(CONF_USERNAME): str,
+        probatio.Required(CONF_PASSWORD): str,
     }
 )
 ### Config_flow Constants End ###
