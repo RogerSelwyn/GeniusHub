@@ -1,0 +1,16 @@
+name: Validate with hassfest
+
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions: {}
+
+jobs:
+  hassfest:
+    name: hassfest Action
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v7"
+      - uses: home-assistant/actions/hassfest@master
