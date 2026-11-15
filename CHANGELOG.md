@@ -4,6 +4,46 @@
 ### 💥 Breaking Changes
 - [Rename integration domain to geniushub_alt](https://github.com/RogerSelwyn/GeniusHub/commit/50f46a93f67c40df8411ff4e70e148e6b1173026) - @RogerSelwyn
 
+### 🐛 Fixes
+- [Correct the zip name in hacs.json](https://github.com/RogerSelwyn/GeniusHub/commit/4075757366d084cf4750e4b4578ad6e9d89003ab) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Configure Renovate and remove Depndabot](https://github.com/RogerSelwyn/GeniusHub/commit/6fbadda06c147e88f74df1f165bb6adfe3ee7f86) - @RogerSelwyn
+- [Update workflows](https://github.com/RogerSelwyn/GeniusHub/commit/a27fb25f0dcca8b5b96f4284b3ae760cfe4ad4cb) - @RogerSelwyn
+- [Delete .github/workflows/codeql.yml](https://github.com/RogerSelwyn/GeniusHub/commit/2ff9cff471bca901210a9fb33f6278268915bb04) - @RogerSelwyn
+- [Update CodeQL workflow to remove pull request trigger](https://github.com/RogerSelwyn/GeniusHub/commit/f5ea64972386819a87e2003f205fa201021b3231) - @RogerSelwyn
+- [Add HACS and hassfest validation](https://github.com/RogerSelwyn/GeniusHub/commit/6f66405604c7382ce1aed8c2f002afa5a0c0f4a0) - @RogerSelwyn
+- [Migrate to probatio](https://github.com/RogerSelwyn/GeniusHub/commit/10738516903def994f8955819f07dff684f07007) - @RogerSelwyn
+- [Remove unrequired category](https://github.com/RogerSelwyn/GeniusHub/commit/3d438ab9ea87fcae4eba573bd4e2a3e385896ad5) - @RogerSelwyn
+- [Update workflows](https://github.com/RogerSelwyn/GeniusHub/commit/344231270eec91ab7d1adb0cbb35f90da16a5c9a) - @RogerSelwyn
+- [Use central renovate config](https://github.com/RogerSelwyn/GeniusHub/commit/3a4fe774edfc4bdacac8d4aeda1d1cffe910e2b7) - @RogerSelwyn
+
+### ⬆️ Dependencies
+- [update dependency ruff to v0.17.4](https://github.com/RogerSelwyn/GeniusHub/commit/9f42125d0bdaaf4618754f97f3cd291eaed6c257) - @renovate[bot]
+- [update dependency python to 3.15](https://github.com/RogerSelwyn/GeniusHub/commit/6b5fdaae80a6857a4abae88b037de03ded44f869) - @renovate[bot]
+- [update actions/checkout action to v7](https://github.com/RogerSelwyn/GeniusHub/commit/bf0c87f50a2bb5cfdcf8f35284e47edd106a1506) - @renovate[bot]
+- [update dependency ruff to v0.17.5 (#48)](https://github.com/RogerSelwyn/GeniusHub/commit/1f8632e4068c3f3ec7865fa1d18de34c780bacd3) - @renovate[bot]
+
+### 📚 Documentation
+- [Add issue tracker](https://github.com/RogerSelwyn/GeniusHub/commit/45b64971ed5f5540acfbced5b2ea23f5f06fb449) - @RogerSelwyn
+- [Add documentation](https://github.com/RogerSelwyn/GeniusHub/commit/4740d70143ac2d1f887f48af8b03ed5fbe3f8ca9) - @RogerSelwyn
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/e62dcdea6585c5e492cd90a99eb5e2e5b1c50088) - @actions-user
+- [Clean up CHANGELOG by removing duplicates](https://github.com/RogerSelwyn/GeniusHub/commit/1573ea488db5aedb59a7a099ff089a568c1faf0e) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.0.0](https://github.com/RogerSelwyn/GeniusHub/commit/31df75e7a1a514fac72301f803edcdcc1e1d316f) - @RogerSelwyn
+
+### Other
+- [Add Home Assistant Marketplace badge to README](https://github.com/RogerSelwyn/GeniusHub/commit/f1525277904ea3d90731f42137a60fdfc37fcd18) - @RogerSelwyn
+- [Add renovate.json](https://github.com/RogerSelwyn/GeniusHub/commit/56417de464266b70a525884839b1326bd7557619) - @renovate[bot]
+
+
+
+
+## v3.0.0 (2026/11/15)
+### 💥 Breaking Changes
+- [Rename integration domain to geniushub_alt](https://github.com/RogerSelwyn/GeniusHub/commit/50f46a93f67c40df8411ff4e70e148e6b1173026) - @RogerSelwyn
+
 ### 🧰 Maintenance
 - [Configure Renovate and remove Depndabot](https://github.com/RogerSelwyn/GeniusHub/commit/6fbadda06c147e88f74df1f165bb6adfe3ee7f86) - @RogerSelwyn
 - [Update workflows](https://github.com/RogerSelwyn/GeniusHub/commit/a27fb25f0dcca8b5b96f4284b3ae760cfe4ad4cb) - @RogerSelwyn
