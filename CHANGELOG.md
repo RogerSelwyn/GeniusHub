@@ -12,6 +12,8 @@
 - [Add HACS and hassfest validation](https://github.com/RogerSelwyn/GeniusHub/commit/6f66405604c7382ce1aed8c2f002afa5a0c0f4a0) - @RogerSelwyn
 - [Migrate to probatio](https://github.com/RogerSelwyn/GeniusHub/commit/10738516903def994f8955819f07dff684f07007) - @RogerSelwyn
 - [Remove unrequired category](https://github.com/RogerSelwyn/GeniusHub/commit/3d438ab9ea87fcae4eba573bd4e2a3e385896ad5) - @RogerSelwyn
+- [Add Home Assistant Marketplace badge to README](https://github.com/RogerSelwyn/GeniusHub/commit/f1525277904ea3d90731f42137a60fdfc37fcd18) - @RogerSelwyn
+- [Add renovate.json](https://github.com/RogerSelwyn/GeniusHub/commit/56417de464266b70a525884839b1326bd7557619) - @renovate[bot]
 - [Update workflows](https://github.com/RogerSelwyn/GeniusHub/commit/344231270eec91ab7d1adb0cbb35f90da16a5c9a) - @RogerSelwyn
 - [Use central renovate config](https://github.com/RogerSelwyn/GeniusHub/commit/3a4fe774edfc4bdacac8d4aeda1d1cffe910e2b7) - @RogerSelwyn
 
@@ -27,10 +29,6 @@
 
 ### 🔖 Release
 - [Release v3.0.0](https://github.com/RogerSelwyn/GeniusHub/commit/31df75e7a1a514fac72301f803edcdcc1e1d316f) - @RogerSelwyn
-
-### Other
-- [Add Home Assistant Marketplace badge to README](https://github.com/RogerSelwyn/GeniusHub/commit/f1525277904ea3d90731f42137a60fdfc37fcd18) - @RogerSelwyn
-- [Add renovate.json](https://github.com/RogerSelwyn/GeniusHub/commit/56417de464266b70a525884839b1326bd7557619) - @renovate[bot]
 
 
 
