@@ -17,7 +17,7 @@ from homeassistant.const import (
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import VolDictType
 
-DOMAIN = "geniushub"
+DOMAIN = "geniushub_alt"
 
 SCAN_INTERVAL = timedelta(seconds=60)
 

@@ -1,5 +1,5 @@
 {
-  "domain": "geniushub",
+  "domain": "geniushub_alt",
   "name": "Genius Hub",
   "categories": ["climate.thermostats_heating", "climate.water_heaters"],
   "codeowners": ["@rogerselwyn"],

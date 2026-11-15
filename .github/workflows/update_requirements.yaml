@@ -14,4 +14,4 @@ jobs:
         uses: "rogerselwyn/actions/update-requirements@main"
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          component: geniushub
+          component: geniushub_alt
