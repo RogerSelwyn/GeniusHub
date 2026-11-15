@@ -86,7 +86,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
         ) from err
     coordinator.make_debug_log_entries()
 
-    _create_hub_devices(hass, entry, unique_id, api, coordinator.client.zone_by_id[0])
+    _create_hub_devices(hass, entry, unique_id, api, coordinator.client.zone_by_id)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
@@ -101,7 +101,7 @@ def _create_hub_devices(
     entry: GeniusHubConfigEntry,
     hub_uid: str,
     api: str,
-    zone0: GeniusZone,
+    zones: {GeniusZone},
 ):
     device_registry = dr.async_get(hass)
     hub_identifiers = (DOMAIN, hub_uid)
@@ -112,13 +112,13 @@ def _create_hub_devices(
         manufacturer=ATTR_MANUFACTURER,
         model=f"{api} API",
     )
-    if zone0.id == 0:
+    for zone in zones.values():
         device_registry.async_get_or_create(
             config_entry_id=entry.entry_id,
-            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(zone0.id))},
+            identifiers={(DOMAIN, IDENTIFIER_ZONE.format(zone.id))},
             via_device_id=hub.id,
-            name=zone0.name,
+            name=zone.name,
             manufacturer=ATTR_MANUFACTURER,
-            model=zone0.name,
-            serial_number=SERIAL_NO.format("Zone", zone0.id),
+            model=zone.name,
+            serial_number=SERIAL_NO.format("Zone", zone.id),
         )
