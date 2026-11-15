@@ -1,5 +1,22 @@
 # Changelog
 
+## v3.0.1 (2026/11/15)
+### 🐛 Fixes
+- [Fix binary sensors fail to load on first setup](https://github.com/RogerSelwyn/GeniusHub/commit/18162e0263eafcc3ca4d61b9cb1eb8b0fd31ba23) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Added config schema for hassfest](https://github.com/RogerSelwyn/GeniusHub/commit/ab8525ab8ab3181566fd61777cd5ea1d46f9bbc5) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/d99e27098735a13cc56a710d07c6434d62c9419e) - @actions-user
+- [Refactor CHANGELOG.md to remove duplicates](https://github.com/RogerSelwyn/GeniusHub/commit/f4c68b1717f5e99e3ef93e68831e38001739c3f7) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.0.1](https://github.com/RogerSelwyn/GeniusHub/commit/6388587680fcfbb4af4fe39809a6d91562ab71ff) - @RogerSelwyn
+
+
+
+
 ## v3.0.0 (2026/11/15)
 ### 💥 Breaking Changes
 - [Rename integration domain to geniushub_alt](https://github.com/RogerSelwyn/GeniusHub/commit/50f46a93f67c40df8411ff4e70e148e6b1173026) - @RogerSelwyn
