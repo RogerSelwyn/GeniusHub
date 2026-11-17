@@ -1,14 +1,14 @@
 """Support for Genius Hub switch/outlet devices."""
 
 from datetime import timedelta
-from typing import Any
+from typing import Any, override
 
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import GH_ATTR_TYPE, GH_ON_OFF_ZONE, GeniusHubServiceArgument
+from .const import GH_ON_OFF_ZONE, GH_TYPE, GeniusHubServiceArgument
 from .entity import GeniusZone
 
 
@@ -24,7 +24,7 @@ async def async_setup_entry(
     async_add_entities(
         GeniusSwitch(coordinator, z)
         for z in coordinator.client.zone_objs
-        if z.data.get(GH_ATTR_TYPE) == GH_ON_OFF_ZONE
+        if z.data.get(GH_TYPE) == GH_ON_OFF_ZONE
     )
 
 
@@ -32,11 +32,13 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
     """Representation of a Genius Hub switch."""
 
     @property
+    @override
     def device_class(self):
         """Return the class of this device, from component DEVICE_CLASSES."""
         return SwitchDeviceClass.OUTLET
 
     @property
+    @override
     def is_on(self) -> bool:
         """Return the current state of the on/off zone.
 
@@ -47,6 +49,7 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
             and self._zone.data["setpoint"]
         )
 
+    @override
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Send the zone to Timer mode.
 
@@ -54,13 +57,10 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
         """
         await self._zone.set_mode("timer")
 
+    @override
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Set the zone to override/on ({'setpoint': true}) for x seconds."""
         duration: timedelta = kwargs.get(
             GeniusHubServiceArgument.DURATION, timedelta(hours=1)
         )
         await self._zone.set_override(1, int(duration.total_seconds()))
-
-    def turn_off(self, **kwargs: Any) -> None:
-        """Not implemented."""
-        raise NotImplementedError("Service not implemented for this entity")

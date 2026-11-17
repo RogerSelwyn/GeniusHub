@@ -1,16 +1,18 @@
 """Support for Genius Hub binary_sensor devices."""
 
+from typing import override
+
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
-    GH_ATTR_TYPE,
     GH_BINARY_SENSOR_STATE_ATTR,
     GH_DUAL_CHANNEL_RECEIVER,
     GH_ELECTRIC_SWITCH_TYPE,
     GH_RECEIVER_TYPE,
+    GH_TYPE,
 )
 from .entity import GeniusDevice
 
@@ -28,10 +30,10 @@ async def async_setup_entry(
         GeniusBinarySensor(coordinator, d, GH_BINARY_SENSOR_STATE_ATTR)
         for d in coordinator.client.device_objs
         if (
-            GH_RECEIVER_TYPE in d.data[GH_ATTR_TYPE]
-            and d.data[GH_ATTR_TYPE] != GH_DUAL_CHANNEL_RECEIVER
+            GH_RECEIVER_TYPE in d.data[GH_TYPE]
+            and d.data[GH_TYPE] != GH_DUAL_CHANNEL_RECEIVER
         )
-        or GH_ELECTRIC_SWITCH_TYPE in d.data[GH_ATTR_TYPE]
+        or GH_ELECTRIC_SWITCH_TYPE in d.data[GH_TYPE]
     )
 
 
@@ -47,6 +49,7 @@ class GeniusBinarySensor(GeniusDevice, BinarySensorEntity):
         self._attr_name = f"{device.type} {device.id}"
 
     @property
+    @override
     def is_on(self) -> bool:
         """Return the status of the sensor."""
         return self._device.data["state"][self._state_attr]

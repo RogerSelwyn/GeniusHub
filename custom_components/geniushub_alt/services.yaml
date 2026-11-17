@@ -17,6 +17,21 @@ set_zone_mode:
             - "timer"
             - "footprint"
 
+set_zone_mode_water_heater:
+  target:
+    entity:
+      integration: geniushub_alt
+      domain: water_heater
+  fields:
+    mode:
+      example: timer
+      required: true
+      selector:
+        select:
+          options:
+            - "off"
+            - "timer"
+
 set_zone_override:
   target:
     entity:
@@ -31,6 +46,26 @@ set_zone_override:
           min: 4
           max: 28
           step: 0.1
+          unit_of_measurement: "°"
+    duration:
+      example: '{"minutes": 135}'
+      selector:
+        object:
+
+set_zone_override_water_heater:
+  target:
+    entity:
+      integration: geniushub_alt
+      domain: water_heater
+  fields:
+    temperature:
+      example: 15
+      required: true
+      selector:
+        number:
+          min: 30
+          max: 75
+          step: 1
           unit_of_measurement: "°"
     duration:
       example: '{"minutes": 135}'

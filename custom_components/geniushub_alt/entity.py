@@ -5,6 +5,7 @@ from typing import Any
 
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -187,6 +188,19 @@ class GeniusHeatingZone(GeniusZone):
                 GeniusHubServiceArgument.DURATION, int(duration.total_seconds())
             ),
         )
+
+    async def async_set_zone_mode(self, mode):
+        """Set a new zone mode."""
+        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001
+            raise ServiceValidationError(
+                f"'{self.entity_id}' cannot support footprint mode (it has no PIR)"
+            )
+
+        await self._zone.set_mode(mode)
+
+    async def async_set_zone_override(self, temperature, duration=timedelta(hours=1)):
+        """Set a new zone override."""
+        await self._zone.set_override(temperature, int(duration.total_seconds()))
 
 
 def _get_via_device_id(

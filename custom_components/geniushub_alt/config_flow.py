@@ -3,7 +3,7 @@
 from http import HTTPStatus
 import logging
 import socket
-from typing import Any, Self
+from typing import Any, Self, override
 
 import aiohttp
 
@@ -27,6 +27,7 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
         """Initialise the configuration flow."""
         self._reconfigure_entry: ConfigEntry | None = None
 
+    @override
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:

@@ -47,16 +47,22 @@
     "set_zone_mode": {
       "description": "Sets the zone to an operating mode.",
       "fields": {
-        "entity_id": {
-          "description": "The zone's entity ID.",
-          "name": "Entity"
-        },
         "mode": {
           "description": "The zone's operating mode.",
           "name": "Mode"
         }
       },
       "name": "Set zone mode"
+    },
+    "set_zone_mode_water_heater": {
+      "description": "Sets the zone to an operating mode.",
+      "fields": {
+        "mode": {
+          "description": "The zone's operating mode.",
+          "name": "Mode"
+        }
+      },
+      "name": "Set zone mode (water heater)"
     },
     "set_zone_override": {
       "description": "Overrides the zone's setpoint for a given duration.",
@@ -65,16 +71,26 @@
           "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
           "name": "Duration"
         },
-        "entity_id": {
-          "description": "The zone's entity ID.",
-          "name": "Entity"
-        },
         "temperature": {
           "description": "The target temperature.",
           "name": "Temperature"
         }
       },
       "name": "Set zone override"
+    },
+    "set_zone_override_water_heater": {
+      "description": "Overrides the zone's setpoint for a given duration.",
+      "fields": {
+        "duration": {
+          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+          "name": "Duration"
+        },
+        "temperature": {
+          "description": "The target temperature.",
+          "name": "Temperature"
+        }
+      },
+      "name": "Set zone override (water heater)"
     }
   },
   "exceptions": {

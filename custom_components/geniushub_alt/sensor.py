@@ -1,7 +1,7 @@
 """Support for Genius Hub sensor devices."""
 
 from datetime import timedelta
-from typing import Any
+from typing import Any, override
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.const import UnitOfRatio, UnitOfTemperature
@@ -16,9 +16,9 @@ from .const import (
     GH_ATTR_NAME,
     GH_ATTR_SETPOINT,
     GH_ATTR_TEMPERATURE,
-    GH_ATTR_TYPE,
     GH_BATTERY_LEVEL_ATTR,
     GH_LEVEL_MAPPING,
+    GH_TYPE,
     IDENTIFIER_ZONE,
 )
 from .entity import GeniusDevice, GeniusEntity
@@ -66,6 +66,7 @@ class GeniusBattery(GeniusDevice, SensorEntity):
         self._attr_name = f"{device.type} {device.id}"
 
     @property
+    @override
     def icon(self) -> str:
         """Return the icon of the sensor."""
         if "_state" in self._device.data:  # only for v3 API
@@ -91,6 +92,7 @@ class GeniusBattery(GeniusDevice, SensorEntity):
         return icon
 
     @property
+    @override
     def native_value(self) -> int:
         """Return the state of the sensor."""
         level = self._device.data["state"][self._state_attr]
@@ -112,11 +114,13 @@ class GeniusIssue(GeniusEntity, SensorEntity):
         self._issues: list = []
 
     @property
+    @override
     def native_value(self) -> int:
         """Return the number of issues."""
         return len(self._issues)
 
     @property
+    @override
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the device state attributes."""
         return {f"{self._level}_list": self._issues}
@@ -144,15 +148,14 @@ class GeniusTemp(GeniusEntity, SensorEntity):
         super().__init__(coordinator)
 
         self._hub = coordinator.client
-        self._unique_id = (
-            f"{coordinator.hub_uid}_{zone.data.get(GH_ATTR_TYPE)}_temperature"
-        )
+        self._unique_id = f"{coordinator.hub_uid}_{zone.data.get(GH_TYPE)}_temperature"
         self._id = zone.id
         self._temperature = zone.data.get(GH_ATTR_TEMPERATURE)
 
         self._attr_name = f"GeniusHub {zone.data.get(GH_ATTR_NAME)} Temperature"
 
     @property
+    @override
     def native_value(self) -> int:
         """Return the temperature of the sensor."""
         return self._temperature
@@ -165,6 +168,7 @@ class GeniusTemp(GeniusEntity, SensorEntity):
                 break
 
     @property
+    @override
     def device_info(self) -> DeviceInfo:
         """Entity device info."""
         return DeviceInfo(identifiers={(DOMAIN, IDENTIFIER_ZONE.format(self._id))})

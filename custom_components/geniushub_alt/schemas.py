@@ -37,9 +37,21 @@ SET_ZONE_MODE_SCHEMA: VolDictType = {
         ["off", "timer", "footprint"]
     ),
 }
+SET_ZONE_MODE_SCHEMA_WATER_HEATER: VolDictType = {
+    probatio.Required(GeniusHubServiceArgument.MODE): probatio.In(["off", "timer"]),
+}
 SET_ZONE_OVERRIDE_SCHEMA: VolDictType = {
     probatio.Required(GeniusHubServiceArgument.TEMPERATURE): probatio.All(
         probatio.Coerce(float), probatio.Range(min=4, max=28)
+    ),
+    probatio.Optional(GeniusHubServiceArgument.DURATION): probatio.All(
+        cv.time_period,
+        probatio.Range(min=timedelta(minutes=5), max=timedelta(days=1)),
+    ),
+}
+SET_ZONE_OVERRIDE_HOT_WATER_SCHEMA: VolDictType = {
+    probatio.Required(GeniusHubServiceArgument.TEMPERATURE): probatio.All(
+        probatio.Coerce(float), probatio.Range(min=35, max=75)
     ),
     probatio.Optional(GeniusHubServiceArgument.DURATION): probatio.All(
         cv.time_period,

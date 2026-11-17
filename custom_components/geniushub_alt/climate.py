@@ -1,6 +1,6 @@
 """Support for Genius Hub climate devices."""
 
-from datetime import timedelta
+from typing import override
 
 from homeassistant.components.climate import (
     PRESET_ACTIVITY,
@@ -11,14 +11,13 @@ from homeassistant.components.climate import (
     HVACMode,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
 from .const import (
-    GH_ATTR_TYPE,
     GH_HVAC_TO_HA,
     GH_PRESET_TO_HA,
+    GH_TYPE,
     GH_ZONES,
     HA_HVAC_TO_GH,
     HA_PRESET_TO_GH,
@@ -38,7 +37,7 @@ async def async_setup_entry(
     async_add_entities(
         GeniusClimateZone(coordinator, z)
         for z in coordinator.client.zone_objs
-        if z.data.get(GH_ATTR_TYPE) in GH_ZONES
+        if z.data.get(GH_TYPE) in GH_ZONES
     )
 
 
@@ -60,21 +59,25 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
         self._min_temp = 4.0
 
     @property
+    @override
     def icon(self) -> str:
         """Return the icon to use in the frontend UI."""
         return "mdi:radiator"
 
     @property
+    @override
     def hvac_mode(self) -> HVACMode:
         """Return hvac operation ie. heat, cool mode."""
         return GH_HVAC_TO_HA.get(self._zone.data["mode"], HVACMode.AUTO)
 
     @property
+    @override
     def hvac_modes(self) -> list[HVACMode]:
         """Return the list of available hvac operation modes."""
         return list(HA_HVAC_TO_GH)
 
     @property
+    @override
     def hvac_action(self) -> HVACAction | None:
         """Return the current running hvac operation if supported."""
         if "_state" in self._zone.data:  # only for v3 API
@@ -88,38 +91,25 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
         return None
 
     @property
+    @override
     def preset_mode(self) -> str | None:
         """Return the current preset mode, e.g., home, away, temp."""
         return GH_PRESET_TO_HA.get(self._zone.data["mode"])
 
     @property
+    @override
     def preset_modes(self) -> list[str] | None:
         """Return a list of available preset modes."""
         if "occupied" in self._zone.data:  # if has a movement sensor
             return [PRESET_ACTIVITY, PRESET_BOOST]
         return [PRESET_BOOST]
 
+    @override
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set a new hvac mode."""
         await self._zone.set_mode(HA_HVAC_TO_GH.get(hvac_mode))
 
+    @override
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         """Set a new preset mode."""
         await self._zone.set_mode(HA_PRESET_TO_GH.get(preset_mode, "timer"))
-
-    async def async_set_zone_mode(self, mode):
-        """Set a new zone mode."""
-        if mode == "footprint" and not self._zone._has_pir:  # noqa: SLF001
-            raise ServiceValidationError(
-                f"'{self.entity_id}' cannot support footprint mode (it has no PIR)"
-            )
-
-        await self._zone.set_mode(mode)
-
-    async def async_set_zone_override(self, temperature, duration=timedelta(hours=1)):
-        """Set a new zone override."""
-        await self._zone.set_override(temperature, int(duration.total_seconds()))
-
-    def set_fan_mode(self, _) -> None:
-        """Not implemented."""
-        raise NotImplementedError("Service not implemented for this entity")

@@ -17,7 +17,9 @@ class GeniusHubService(StrEnum):
     """Store keys for Genius Hub services."""
 
     SET_ZONE_MODE = "set_zone_mode"
+    SET_ZONE_MODE_WATER_HEATER = "set_zone_mode_water_heater"
     SET_ZONE_OVERRIDE = "set_zone_override"
+    SET_ZONE_OVERRID_WATER_HEATER = "set_zone_override_water_heater"
     SET_SWITCH_OVERRIDE = "set_switch_override"
 
 
@@ -112,4 +114,4 @@ GH_HEATERS = ["hot water temperature"]
 GH_ATTR_NAME = "name"
 GH_ATTR_SETPOINT = "setpoint"
 GH_ATTR_TEMPERATURE = "temperature"
-GH_ATTR_TYPE = "type"
+GH_TYPE = "type"
