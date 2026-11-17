@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.1.0 (2026/11/17)
+### ✨ Enhancements
+- [Add support for water heater overide/mode setting](https://github.com/RogerSelwyn/GeniusHub/commit/8a6ca1df6e73bdec5b1a48f034af13dc5259eae3) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.1.0](https://github.com/RogerSelwyn/GeniusHub/commit/6f914e6d286da099debac74b4be8edb6653a2d42) - @RogerSelwyn
+
+
+
+
 ## v3.0.2 (2026/11/17)
 ### 🐛 Fixes
 - [Fix services.yaml for move to geniushub_alt](https://github.com/RogerSelwyn/GeniusHub/commit/33ec17f29bd7577806786f53c74d47391f0deb2f) - @RogerSelwyn
