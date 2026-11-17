@@ -13,6 +13,7 @@ from homeassistant.const import (
     CONF_PASSWORD,
     CONF_TOKEN,
     CONF_USERNAME,
+    Platform,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryError
@@ -24,12 +25,19 @@ from homeassistant.helpers import (
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType
 
-from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, PLATFORMS, SERIAL_NO
+from .const import ATTR_MANUFACTURER, DOMAIN, IDENTIFIER_ZONE, SERIAL_NO
 from .coordinator import GeniusCoordinator
 from .services import async_setup_services
 
 _LOGGER = logging.getLogger(__name__)
 
+PLATFORMS = (
+    Platform.BINARY_SENSOR,
+    Platform.CLIMATE,
+    Platform.SENSOR,
+    Platform.SWITCH,
+    Platform.WATER_HEATER,
+)
 
 type GeniusHubConfigEntry = ConfigEntry[GeniusCoordinator]
 
@@ -91,7 +99,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) -> None:
     """Unload a config entry."""
     await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 

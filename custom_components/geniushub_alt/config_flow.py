@@ -1,6 +1,7 @@
 """Config flow for Geniushub integration."""
 
 from http import HTTPStatus
+import logging
 import socket
 from typing import Any, Self
 
@@ -11,7 +12,10 @@ from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResu
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import ATTR_MANUFACTURER, CLOUD_API_SCHEMA, DOMAIN, LOCAL_API_SCHEMA
+from .const import ATTR_MANUFACTURER, DOMAIN
+from .schemas import CLOUD_API_SCHEMA, LOCAL_API_SCHEMA
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -69,6 +73,9 @@ class GeniusHubConfigFlow(ConfigFlow, domain=DOMAIN):
                     errors["base"] = "invalid_host"
             except TimeoutError, aiohttp.ClientConnectionError:
                 errors["base"] = "cannot_connect"
+            except Exception:
+                _LOGGER.exception("Unexpected exception")
+                errors["base"] = "unknown"
             else:
                 await self.async_set_unique_id(response["data"]["UID"])
                 self._abort_if_unique_id_configured()
