@@ -1,9 +1,9 @@
 """Base entity for Geniushub."""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
-from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -12,13 +12,13 @@ from homeassistant.util import dt as dt_util
 
 from . import DOMAIN, GeniusHubConfigEntry
 from .const import (
-    ATTR_DURATION,
     ATTR_MANUFACTURER,
     GH_DEVICE_ATTRS,
     GH_ZONE_ATTRS,
     IDENTIFIER_DEVICE,
     IDENTIFIER_ZONE,
     SERIAL_NO,
+    GeniusHubServiceArgument,
 )
 
 
@@ -178,8 +178,14 @@ class GeniusHeatingZone(GeniusZone):
 
     async def async_set_temperature(self, **kwargs) -> None:
         """Set a new target temperature for this zone."""
+        duration: timedelta = kwargs.get(
+            GeniusHubServiceArgument.DURATION, timedelta(hours=1)
+        )
         await self._zone.set_override(
-            kwargs[ATTR_TEMPERATURE], kwargs.get(ATTR_DURATION, 3600)
+            kwargs[GeniusHubServiceArgument.TEMPERATURE],
+            kwargs.get(
+                GeniusHubServiceArgument.DURATION, int(duration.total_seconds())
+            ),
         )
 
 

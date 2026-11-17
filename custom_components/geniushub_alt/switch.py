@@ -1,5 +1,6 @@
 """Support for Genius Hub switch/outlet devices."""
 
+from datetime import timedelta
 from typing import Any
 
 from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
@@ -7,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import GeniusHubConfigEntry
-from .const import ATTR_DURATION, GH_ATTR_TYPE, GH_ON_OFF_ZONE
+from .const import GH_ATTR_TYPE, GH_ON_OFF_ZONE, GeniusHubServiceArgument
 from .entity import GeniusZone
 
 
@@ -55,7 +56,10 @@ class GeniusSwitch(GeniusZone, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Set the zone to override/on ({'setpoint': true}) for x seconds."""
-        await self._zone.set_override(1, kwargs.get(ATTR_DURATION, 3600))
+        duration: timedelta = kwargs.get(
+            GeniusHubServiceArgument.DURATION, timedelta(hours=1)
+        )
+        await self._zone.set_override(1, int(duration.total_seconds()))
 
     def turn_off(self, **kwargs: Any) -> None:
         """Not implemented."""
