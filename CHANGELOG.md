@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.0.2 (2026/11/17)
+### 🐛 Fixes
+- [Fix services.yaml for move to geniushub_alt](https://github.com/RogerSelwyn/GeniusHub/commit/33ec17f29bd7577806786f53c74d47391f0deb2f) - @RogerSelwyn
+- [Ensure duration is handled correctly in service calls](https://github.com/RogerSelwyn/GeniusHub/commit/5caa42edaeecd762b201963d97c9a471361975d4) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Changes to align closer to core](https://github.com/RogerSelwyn/GeniusHub/commit/022a892f4a222ba7879006302e86add18832113e) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.0.2](https://github.com/RogerSelwyn/GeniusHub/commit/374a41f2137da2f1293178aa405fc166ca3b5d24) - @RogerSelwyn
+
+
+
+
 ## v3.0.1 (2026/11/15)
 ### 🐛 Fixes
 - [Fix binary sensors fail to load on first setup](https://github.com/RogerSelwyn/GeniusHub/commit/18162e0263eafcc3ca4d61b9cb1eb8b0fd31ba23) - @RogerSelwyn
