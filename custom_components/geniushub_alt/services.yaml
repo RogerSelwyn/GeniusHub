@@ -4,7 +4,7 @@
 set_zone_mode:
   target:
     entity:
-      integration: geniushub
+      integration: geniushub_alt
       domain: climate
   fields:
     mode:
@@ -20,7 +20,7 @@ set_zone_mode:
 set_zone_override:
   target:
     entity:
-      integration: geniushub
+      integration: geniushub_alt
       domain: climate
   fields:
     temperature:
@@ -40,7 +40,7 @@ set_zone_override:
 set_switch_override:
   target:
     entity:
-      integration: geniushub
+      integration: geniushub_alt
       domain: switch
   fields:
     duration:
