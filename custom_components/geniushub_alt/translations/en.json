@@ -1,107 +1,104 @@
 {
-  "config": {
-    "abort": {
-      "already_configured": "Device is already configured"
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_host": "Invalid hostname or IP address",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "cloud_api": {
+                "data": {
+                    "token": "Access token"
+                },
+                "title": "Genius Hub cloud configuration"
+            },
+            "local_api": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "username": "Username"
+                },
+                "title": "Genius Hub local configuration"
+            },
+            "user": {
+                "menu_options": {
+                    "cloud_api": "Cloud: API token",
+                    "local_api": "Local: IP address and user credentials"
+                },
+                "title": "Genius Hub configuration"
+            }
+        }
     },
-    "error": {
-      "cannot_connect": "Failed to connect",
-      "invalid_auth": "Invalid authentication",
-      "invalid_host": "Invalid hostname or IP address",
-      "unknown": "Unexpected error"
+    "exceptions": {
+        "error_communicating_with_api": {
+            "message": "Connection to geniushub failed (unable to update), message is: {api_err}"
+        },
+        "timeout_communicating_with_api": {
+            "message": "Timeout communicating with GH API: {err_traceback}"
+        }
     },
-    "step": {
-      "cloud_api": {
-        "data": {
-          "token": "Access token"
+    "services": {
+        "set_switch_override": {
+            "description": "Overrides switch for a given duration.",
+            "fields": {
+                "duration": {
+                    "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+                    "name": "Duration"
+                }
+            },
+            "name": "Set switch override"
         },
-        "title": "Genius Hub cloud configuration"
-      },
-      "local_api": {
-        "data": {
-          "host": "Host",
-          "password": "Password",
-          "username": "Username"
+        "set_zone_mode": {
+            "description": "Sets the zone to an operating mode.",
+            "fields": {
+                "mode": {
+                    "description": "The zone's operating mode.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Set zone mode (climate)"
         },
-        "title": "Genius Hub local configuration"
-      },
-      "user": {
-        "menu_options": {
-          "cloud_api": "Cloud: API token",
-          "local_api": "Local: IP address and user credentials"
+        "set_zone_mode_water_heater": {
+            "description": "Sets the zone to an operating mode.",
+            "fields": {
+                "mode": {
+                    "description": "The zone's operating mode.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Set zone mode (water heater"
         },
-        "title": "Genius Hub configuration"
-      }
+        "set_zone_override": {
+            "description": "Overrides the zone's setpoint for a given duration.",
+            "fields": {
+                "duration": {
+                    "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+                    "name": "Duration"
+                },
+                "temperature": {
+                    "description": "The target temperature.",
+                    "name": "Temperature"
+                }
+            },
+            "name": "Set zone override (climate)"
+        },
+        "set_zone_override_water_heater": {
+            "description": "Overrides the zone's setpoint for a given duration.",
+            "fields": {
+                "duration": {
+                    "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
+                    "name": "Duration"
+                },
+                "temperature": {
+                    "description": "The target temperature.",
+                    "name": "Temperature"
+                }
+            },
+            "name": "Set zone override (water heater)"
+        }
     }
-  },
-  "services": {
-    "set_switch_override": {
-      "description": "Overrides switch for a given duration.",
-      "fields": {
-        "duration": {
-          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
-          "name": "Duration"
-        }
-      },
-      "name": "Set switch override"
-    },
-    "set_zone_mode": {
-      "description": "Sets the zone to an operating mode.",
-      "fields": {
-        "mode": {
-          "description": "The zone's operating mode.",
-          "name": "Mode"
-        }
-      },
-      "name": "Set zone mode"
-    },
-    "set_zone_mode_water_heater": {
-      "description": "Sets the zone to an operating mode.",
-      "fields": {
-        "mode": {
-          "description": "The zone's operating mode.",
-          "name": "Mode"
-        }
-      },
-      "name": "Set zone mode (water heater)"
-    },
-    "set_zone_override": {
-      "description": "Overrides the zone's setpoint for a given duration.",
-      "fields": {
-        "duration": {
-          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
-          "name": "Duration"
-        },
-        "temperature": {
-          "description": "The target temperature.",
-          "name": "Temperature"
-        }
-      },
-      "name": "Set zone override"
-    },
-    "set_zone_override_water_heater": {
-      "description": "Overrides the zone's setpoint for a given duration.",
-      "fields": {
-        "duration": {
-          "description": "The duration of the override. Optional, default 1 hour, maximum 24 hours.",
-          "name": "Duration"
-        },
-        "temperature": {
-          "description": "The target temperature.",
-          "name": "Temperature"
-        }
-      },
-      "name": "Set zone override (water heater)"
-    }
-  },
-  "exceptions": {
-    "setup_failed": {
-      "message": "Setup failed, check your configuration, {err}"
-    },
-    "error_communicating_with_api": {
-      "message": "Connection to geniushub failed (unable to update), message is: {api_err}"
-    },
-    "timeout_communicating_with_api": {
-      "message": "Timeout communicating with GH API: {err_traceback}"
-    }
-  }
 }

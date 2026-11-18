@@ -1,7 +1,7 @@
 """Base entity for Geniushub."""
 
 from datetime import datetime, timedelta
-from typing import Any
+from typing import Any, override
 
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
@@ -33,11 +33,13 @@ class GeniusEntity(CoordinatorEntity):
         super().__init__(coordinator)
         self._unique_id: str | None = None
 
+    @override
     def _handle_coordinator_update(self) -> None:
         """Process any signals."""
         self.async_schedule_update_ha_state(force_refresh=True)
 
     @property
+    @override
     def unique_id(self) -> str | None:
         """Return a unique ID."""
         return self._unique_id
@@ -57,6 +59,7 @@ class GeniusDevice(GeniusEntity):
         self._hub = coordinator
 
     @property
+    @override
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the device state attributes."""
         attrs = {"assigned_zone": self._device.data["assignedZones"][0]["name"]}
@@ -74,6 +77,7 @@ class GeniusDevice(GeniusEntity):
         return attrs
 
     @property
+    @override
     def device_info(self) -> DeviceInfo:
         """Entity device info."""
         via_device = _get_via_device_id(
@@ -96,13 +100,10 @@ class GeniusDevice(GeniusEntity):
 
     async def async_update(self) -> None:
         """Update an entity's state data."""
-        if (
-            "_state" in self._device.data
-            and self._device.data["_state"]["lastComms"] is not None
-        ):  # only via v3 API
-            self._last_comms = dt_util.utc_from_timestamp(
-                self._device.data["_state"]["lastComms"]
-            )
+        if (state := self._device.data.get("_state")) and (
+            last_comms := state.get("lastComms")
+        ) is not None:  # only via v3 API
+            self._last_comms = dt_util.utc_from_timestamp(last_comms)
 
 
 class GeniusZone(GeniusEntity):
@@ -117,17 +118,20 @@ class GeniusZone(GeniusEntity):
         self._hub = coordinator
 
     @property
+    @override
     def name(self) -> str:
         """Return the name of the climate device."""
         return self._zone.name
 
     @property
+    @override
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the device state attributes."""
         status = {k: v for k, v in self._zone.data.items() if k in GH_ZONE_ATTRS}
         return {"status": status}
 
     @property
+    @override
     def device_info(self) -> DeviceInfo:
         """Entity device info."""
 
@@ -171,11 +175,6 @@ class GeniusHeatingZone(GeniusZone):
     def max_temp(self) -> float:
         """Return max valid temperature that can be set."""
         return self._max_temp
-
-    @property
-    def temperature_unit(self) -> str:
-        """Return the unit of measurement."""
-        return UnitOfTemperature.CELSIUS
 
     async def async_set_temperature(self, **kwargs) -> None:
         """Set a new target temperature for this zone."""

@@ -59,7 +59,7 @@ set_zone_override_water_heater:
       domain: water_heater
   fields:
     temperature:
-      example: 15
+      example: 60
       required: true
       selector:
         number:

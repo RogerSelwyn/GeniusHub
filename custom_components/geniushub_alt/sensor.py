@@ -25,7 +25,7 @@ from .entity import GeniusDevice, GeniusEntity
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,  # pylint: disable=unused-argument
+    hass: HomeAssistant,
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -39,7 +39,6 @@ async def async_setup_entry(
         if GH_BATTERY_LEVEL_ATTR in d.data["state"]
     ]
     entities.extend([GeniusIssue(coordinator, i) for i in list(GH_LEVEL_MAPPING)])
-
     entities.extend(
         [
             GeniusTemp(coordinator, z)
@@ -111,7 +110,7 @@ class GeniusIssue(GeniusEntity, SensorEntity):
 
         self._attr_name = f"GeniusHub {GH_LEVEL_MAPPING[level]}"
         self._level = level
-        self._issues: list = []
+        self._update_issues()
 
     @property
     @override
@@ -127,14 +126,18 @@ class GeniusIssue(GeniusEntity, SensorEntity):
 
     async def async_update(self) -> None:
         """Process the sensor's state data."""
-        self._issues = [
-            i["description"] for i in self._hub.issues if i["level"] == self._level
-        ]
+        self._update_issues()
 
     @property
+    @override
     def device_info(self) -> DeviceInfo:
         """Entity device info."""
         return DeviceInfo(identifiers={(DOMAIN, self._hub.uid)})
+
+    def _update_issues(self):
+        self._issues = [
+            i["description"] for i in self._hub.issues if i["level"] == self._level
+        ]
 
 
 class GeniusTemp(GeniusEntity, SensorEntity):
@@ -152,7 +155,7 @@ class GeniusTemp(GeniusEntity, SensorEntity):
         self._id = zone.id
         self._temperature = zone.data.get(GH_ATTR_TEMPERATURE)
 
-        self._attr_name = f"GeniusHub {zone.data.get(GH_ATTR_NAME)} Temperature"
+        self._attr_name = f"{zone.data.get(GH_ATTR_NAME)} Temperature"
 
     @property
     @override

@@ -31,7 +31,7 @@ class GeniusHubServiceArgument(StrEnum):
     DURATION = "duration"
 
 
-ATTR_MANUFACTURER = "Genius Hub"
+ATTR_MANUFACTURER = "GeniusHub"
 IDENTIFIER_ZONE = "zone-{0}"
 IDENTIFIER_DEVICE = "device-{0}"
 SERIAL_NO = "{0} Id: {1}"

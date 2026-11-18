@@ -4,14 +4,16 @@ import logging
 import traceback
 
 import aiohttp
+from geniushubclient import GeniusHub
 import requests
 
-from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import DOMAIN, SCAN_INTERVAL
+
+type GeniusHubConfigEntry = ConfigEntry[GeniusCoordinator]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,7 +22,11 @@ class GeniusCoordinator(DataUpdateCoordinator):
     """Container for geniushub client and data."""
 
     def __init__(
-        self, hass: HomeAssistant, client: GeniusHub, entry: ConfigEntry, hub_uid: str
+        self,
+        hass: HomeAssistant,
+        client: GeniusHub,
+        entry: GeniusHubConfigEntry,
+        hub_uid: str,
     ) -> None:
         """Initialize the geniushub client."""
         super().__init__(

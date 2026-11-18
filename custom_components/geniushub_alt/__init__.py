@@ -2,10 +2,9 @@
 
 import logging
 
-import aiohttp
-
 from geniushubclient import GeniusHub
 from geniushubclient.zone import GeniusZone
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
@@ -16,7 +15,6 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryError
 from homeassistant.helpers import (
     config_validation as cv,
     device_registry as dr,
@@ -83,15 +81,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: GeniusHubConfigEntry) ->
 
     coordinator = entry.runtime_data = GeniusCoordinator(hass, client, entry, unique_id)
 
-    try:
-        await coordinator.async_config_entry_first_refresh()
-    except aiohttp.ClientResponseError as err:
-        _LOGGER.error("Setup failed, check your configuration, %s", err)
-        raise ConfigEntryError(
-            translation_domain=DOMAIN,
-            translation_key="setup_failed",
-            translation_placeholders={"err": err},
-        ) from err
+    await coordinator.async_config_entry_first_refresh()
     coordinator.make_debug_log_entries()
 
     _create_hub_devices(hass, entry, unique_id, api, coordinator.client.zone_by_id)

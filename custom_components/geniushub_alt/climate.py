@@ -26,7 +26,7 @@ from .entity import GeniusHeatingZone
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,  # pylint: disable=unused-argument
+    hass: HomeAssistant,
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -85,7 +85,6 @@ class GeniusClimateZone(GeniusHeatingZone, ClimateEntity):
                 return HVACAction.OFF
             if self._zone.data["output"] == 1:
                 return HVACAction.HEATING
-            # if not self._zone.data["_state"].get("bIsActive"):
             return HVACAction.IDLE
 
         return None

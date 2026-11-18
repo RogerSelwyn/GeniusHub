@@ -13,7 +13,7 @@ from .entity import GeniusZone
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,  # pylint: disable=unused-argument
+    hass: HomeAssistant,
     entry: GeniusHubConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -31,11 +31,7 @@ async def async_setup_entry(
 class GeniusSwitch(GeniusZone, SwitchEntity):
     """Representation of a Genius Hub switch."""
 
-    @property
-    @override
-    def device_class(self):
-        """Return the class of this device, from component DEVICE_CLASSES."""
-        return SwitchDeviceClass.OUTLET
+    _attr_device_class = SwitchDeviceClass.OUTLET
 
     @property
     @override
