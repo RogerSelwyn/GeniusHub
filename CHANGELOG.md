@@ -1,5 +1,25 @@
 # Changelog
 
+## v.3.2.0 (2026/11/19)
+### ✨ Enhancements
+- [Add support for water heater overide/mode setting](https://github.com/RogerSelwyn/GeniusHub/commit/8a6ca1df6e73bdec5b1a48f034af13dc5259eae3) - @RogerSelwyn
+
+### 🧰 Maintenance
+- [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
+- [Other changes from core PR](https://github.com/RogerSelwyn/GeniusHub/commit/1f2631ec8e656be32b1989d7d8180a5742aab3cd) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/87cb37551b3838972f0e717da346d32e04077065) - @actions-user
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/aabf8d1bcecb41f7bf800d0b4afed8d6c1b4a4bf) - @actions-user
+
+### 🔖 Release
+- [Release v3.1.0](https://github.com/RogerSelwyn/GeniusHub/commit/6f914e6d286da099debac74b4be8edb6653a2d42) - @RogerSelwyn
+- [Release v3.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/0a4e18834fd8c667e8106f86359b0e24af6cbfdd) - @RogerSelwyn
+- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/8e106305cad7484d37f8862cd18479e09374624d) - @actions-user
+
+
+
+
 ## v3.2.0 (2026/11/19)
 ### 🧰 Maintenance
 - [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
