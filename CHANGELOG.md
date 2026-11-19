@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.2.1 (2026/11/19)
+### 🧰 Maintenance
+- [Improve electric switch handling for cloud api](https://github.com/RogerSelwyn/GeniusHub/commit/224b09d57996897e941aedf6cf95050a35340e8a) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/75d003fdaf36d4896b31ee546154f2079eee6d14) - @actions-user
+- [Clean up CHANGELOG.md by removing duplicates](https://github.com/RogerSelwyn/GeniusHub/commit/5134cf8a0e676fa97521f94ee78894f3c02edfcf) - @RogerSelwyn
+
+### 🔖 Release
+- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/e9062916d4d280ff173ea49006e6ed66b953f3bd) - @actions-user
+- [Release v3.2.1](https://github.com/RogerSelwyn/GeniusHub/commit/d29f8824a9c48c80804e87df25479d8d543d674b) - @RogerSelwyn
+
+
+
+
 ## v3.2.0 (2026/11/19)
 ### 🧰 Maintenance
 - [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
