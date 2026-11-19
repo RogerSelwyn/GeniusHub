@@ -3,17 +3,18 @@
 from datetime import datetime, timedelta
 from typing import Any, override
 
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfTemperature
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import device_registry as dr
-from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.device_registry import DeviceEntry, DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
 
-from . import DOMAIN, GeniusHubConfigEntry
 from .const import (
     ATTR_MANUFACTURER,
+    DOMAIN,
     GH_DEVICE_ATTRS,
     GH_ZONE_ATTRS,
     IDENTIFIER_DEVICE,
@@ -21,22 +22,23 @@ from .const import (
     SERIAL_NO,
     GeniusHubServiceArgument,
 )
+from .coordinator import GeniusCoordinator
 
 
 class GeniusEntity(CoordinatorEntity):
     """Base for all Genius Hub entities."""
 
-    _attr_should_poll = False
-
-    def __init__(self, coordinator) -> None:
+    def __init__(self, coordinator: GeniusCoordinator) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
+        self.coordinator: GeniusCoordinator = coordinator
         self._unique_id: str | None = None
 
     @override
+    @callback
     def _handle_coordinator_update(self) -> None:
         """Process any signals."""
-        self.async_schedule_update_ha_state(force_refresh=True)
+        self.async_schedule_update_ha_state()
 
     @property
     @override
@@ -48,7 +50,7 @@ class GeniusEntity(CoordinatorEntity):
 class GeniusDevice(GeniusEntity):
     """Base for all Genius Hub devices."""
 
-    def __init__(self, coordinator, device) -> None:
+    def __init__(self, coordinator: GeniusCoordinator, device) -> None:
         """Initialize the Device."""
         super().__init__(coordinator)
 
@@ -82,12 +84,16 @@ class GeniusDevice(GeniusEntity):
         """Entity device info."""
         via_device = _get_via_device_id(
             self.hass,
-            self.coordinator.config_entry,
+            self.coordinator.config_entry,  # type: ignore[arg-type]
             (DOMAIN, IDENTIFIER_ZONE.format(self._device.assigned_zone.id)),
         )
 
-        name = f"{self._device.type.title()} {self._device.id}"
-        model = f"{self._device.type} ({self._device.device_model})"
+        if self._device.type:
+            name = f"{self._device.type.title()} {self._device.id}"
+            model = f"{self._device.type} ({self._device.device_model})"
+        else:
+            name = f"{self._device.location} {self._device.id}"
+            model = "Electric Switch"
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
@@ -98,18 +104,21 @@ class GeniusDevice(GeniusEntity):
             serial_number=SERIAL_NO.format("Device", self._device.id),
         )
 
-    async def async_update(self) -> None:
+    @override
+    @callback
+    def _handle_coordinator_update(self) -> None:
         """Update an entity's state data."""
         if (state := self._device.data.get("_state")) and (
             last_comms := state.get("lastComms")
         ) is not None:  # only via v3 API
             self._last_comms = dt_util.utc_from_timestamp(last_comms)
+            self.async_write_ha_state()
 
 
 class GeniusZone(GeniusEntity):
     """Base for all Genius Hub zones."""
 
-    def __init__(self, coordinator, zone) -> None:
+    def __init__(self, coordinator: GeniusCoordinator, zone) -> None:
         """Initialize the Zone."""
         super().__init__(coordinator)
 
@@ -136,7 +145,9 @@ class GeniusZone(GeniusEntity):
         """Entity device info."""
 
         via_device = _get_via_device_id(
-            self.hass, self.coordinator.config_entry, (DOMAIN, self._hub.hub_uid)
+            self.hass,
+            self.coordinator.config_entry,  # type: ignore[arg-type]
+            (DOMAIN, self._hub.hub_uid),
         )
 
         return DeviceInfo(
@@ -203,7 +214,7 @@ class GeniusHeatingZone(GeniusZone):
 
 
 def _get_via_device_id(
-    hass: HomeAssistant, entry: GeniusHubConfigEntry, identifiers
-) -> DeviceInfo:
+    hass: HomeAssistant, entry: ConfigEntry, identifiers
+) -> DeviceEntry:
     dev_reg = dr.async_get(hass)
-    return dev_reg.async_get_device_by_identifier(identifiers, entry.entry_id)
+    return dev_reg.async_get_device_by_identifier(identifiers, entry.entry_id)  # type: ignore[return-value]

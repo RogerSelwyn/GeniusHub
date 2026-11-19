@@ -35,10 +35,10 @@
     },
     "exceptions": {
         "error_communicating_with_api": {
-            "message": "Connection to geniushub failed (unable to update), message is: {api_err}"
+            "message": "Connection to geniushub failed (unable to update)"
         },
         "timeout_communicating_with_api": {
-            "message": "Timeout communicating with GH API: {err_traceback}"
+            "message": "Timeout communicating with GH API"
         }
     },
     "services": {
