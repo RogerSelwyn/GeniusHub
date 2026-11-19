@@ -5,6 +5,24 @@
 - [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
 - [Other changes from core PR](https://github.com/RogerSelwyn/GeniusHub/commit/1f2631ec8e656be32b1989d7d8180a5742aab3cd) - @RogerSelwyn
 
+### 📚 Documentation
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/aabf8d1bcecb41f7bf800d0b4afed8d6c1b4a4bf) - @actions-user
+- [Update changelog with release notes](https://github.com/RogerSelwyn/GeniusHub/commit/40b1151cbed9466eef13dc6e2536b7151f70ae06) - @actions-user
+- [Clean up duplicate changelog entries for v3.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/400b9e657bf2b21b15bbaf86dbcfb76d70871343) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/0a4e18834fd8c667e8106f86359b0e24af6cbfdd) - @RogerSelwyn
+- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/8e106305cad7484d37f8862cd18479e09374624d) - @actions-user
+- [Auto update manifest.json](https://github.com/RogerSelwyn/GeniusHub/commit/e9062916d4d280ff173ea49006e6ed66b953f3bd) - @actions-user
+
+
+
+
+## v3.2.0 (2026/11/19)
+### 🧰 Maintenance
+- [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
+- [Other changes from core PR](https://github.com/RogerSelwyn/GeniusHub/commit/1f2631ec8e656be32b1989d7d8180a5742aab3cd) - @RogerSelwyn
+
 ### 🔖 Release
 - [Release v3.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/0a4e18834fd8c667e8106f86359b0e24af6cbfdd) - @RogerSelwyn
 
