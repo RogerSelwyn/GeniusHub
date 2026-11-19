@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.2.0 (2026/11/19)
+### 🧰 Maintenance
+- [Align with core](https://github.com/RogerSelwyn/GeniusHub/commit/a77be58dd6939ed77355b87088f31f697f3375d2) - @RogerSelwyn
+- [Other changes from core PR](https://github.com/RogerSelwyn/GeniusHub/commit/1f2631ec8e656be32b1989d7d8180a5742aab3cd) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v3.2.0](https://github.com/RogerSelwyn/GeniusHub/commit/0a4e18834fd8c667e8106f86359b0e24af6cbfdd) - @RogerSelwyn
+
+
+
+
 ## v3.1.0 (2026/11/17)
 ### ✨ Enhancements
 - [Add support for water heater overide/mode setting](https://github.com/RogerSelwyn/GeniusHub/commit/8a6ca1df6e73bdec5b1a48f034af13dc5259eae3) - @RogerSelwyn
