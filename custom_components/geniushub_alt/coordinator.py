@@ -4,9 +4,9 @@ import logging
 from typing import override
 
 import aiohttp
-from geniushubclient import GeniusHub
 import requests
 
+from geniushubclient import GeniusHub
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed

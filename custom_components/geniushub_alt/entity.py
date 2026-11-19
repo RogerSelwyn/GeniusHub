@@ -90,10 +90,16 @@ class GeniusDevice(GeniusEntity):
 
         if self._device.type:
             name = f"{self._device.type.title()} {self._device.id}"
-            model = f"{self._device.type} ({self._device.device_model})"
+            if self._device.device_model is not None:
+                model = f"{self._device.type} ({self._device.device_model})"
+            else:
+                model = f"{self._device.type}"
         else:
             name = f"{self._device.location} {self._device.id}"
-            model = "Electric Switch"
+            if self._device.measured_temperature is None:
+                model = "Electric Switch"
+            else:
+                model = "Electric Switch w/temp"
 
         return DeviceInfo(
             identifiers={(DOMAIN, IDENTIFIER_DEVICE.format(self._device.id))},
